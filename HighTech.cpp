@@ -4,9 +4,9 @@
     
 HighTech::HighTech(){
     this->Companies=new CompaniesTree_t();
-    this->Workers=new WorkersTree_t();
+    //this->Workers=new WorkersTree_t();
     this->AllWorkersTree=new AllWorkersTree_t();
-    this->bestWorker=NULL;+
+    this->bestWorker=NULL;
 }
 StatusType HighTech::addWorker(int workerID, int rank){
     if(workerID<=0 || rank<=0){
@@ -52,7 +52,7 @@ StatusType HighTech::addworkerToCompany(int workerID, int companyID){
     if(workerID<=0 || companyID<=0){
         return INVALID_INPUT;
     }
-    Worker* WorkerExists = this->Workers->Find(workerID);
+    Worker* WorkerExists = this->AllWorkersTree->Find(workerID);
     Company* CompanyExists = this->Companies->Find(companyID);
     if( WorkerExists==NULL || CompanyExists==NULL){
         return FAILURE;
@@ -71,12 +71,12 @@ StatusType HighTech::removeWorker(int workerID){
     if(workerID<=0){
         return INVALID_INPUT;
     }
-    Worker* WorkerExists = this->Workers->Find(workerID);
+    Worker* WorkerExists = this->AllWorkersTree->Find(workerID);
     if( WorkerExists==NULL){
         return FAILURE;
     }
-    WorkerExists->getCompany()->workers->Delete(WorkerExists->getCompany()->workers->Find(workerId));
-    this->Workers->Delete(WorkerExists);
+    WorkerExists->getCompany()->workers->Delete(WorkerExists->getCompany()->workers->Find(workerID));
+    this->AllWorkersTree->Delete(workerID);
     return SUCCESS;
 }
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
@@ -101,27 +101,76 @@ StatusType HighTech::getBestWorker(int companyID, int *workerID){
     return SUCCESS;
 }
 StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int *numOfWorkers){
-
+    if(companyID == 0 || workers == NULL || numOfWorkers == NULL){
+        return INVALID_INPUT;
+    }
+    if(companyID<0){
+        *numOfWorkers=this->AllWorkersTree->getNodesCount();
+        int* allWorkers = (int*)malloc(sizeof(allWorkers) * (*numOfWorkers));
+        if(allWorkers == NULL){
+            return ALLOCATION_ERROR;
+        }
+        getTree(this->AllWorkersTree, allWorkers);
+        printTree(this->AllWorkersTree);
+        return SUCCESS;
+    }
+    Company* CompanyExists = this->Companies->Find(companyID);
+    if(CompanyExists==NULL){
+        return FAILURE;
+    }
+    *numOfWorkers=CompanyExists->workers->getNodesCount();
+    int* companyWorkers = (int*)malloc(sizeof(companyWorkers) * (*numOfWorkers));
+    if(companyWorkers == NULL){
+        return ALLOCATION_ERROR;
+    }
+    getTree(CompanyExists->workers, companyWorkers);
+    printTree(CompanyExists->workers);
+    return SUCCESS;
 }
+
 void HighTech::Quit(){
     delete(this->bestWorker);
-    deletWorkerTree(this->AllWorkersTree);
+    deleteWorkerTree(this->AllWorkersTree);
     delete(this->AllWorkersTree);
-    deletCompanyTree(this->Companies);
+    deleteCompanyTree(this->Companies);
     delete(this->Companies);
 }
 
-void HighTech::deletWorkerTree(AllWorkersTree_t* AllWorkersTree){
+void HighTech::getTree(AllWorkersTree_t* AllWorkersTree, int *workers){
+    AllWorkersTreeIterator AllWorkersIterator = AllWorkersTree->GetIterator();
+    while (*AllWorkersIterator != NULL){
+        *workers = (*AllWorkersIterator)->getId();
+        workers++;
+        AllWorkersIterator++;
+    }
+}
+
+void HighTech::deleteWorkerTree(AllWorkersTree_t* AllWorkersTree){
     if(AllWorkersTree==NULL){
         return;
     }
-    AllWorkersTreeIterator AllWorkersIterator = AllWorkersTree->getIterator();
+    AllWorkersTreeIterator AllWorkersIterator = AllWorkersTree->GetIterator();
     while(*AllWorkersIterator!=NULL){
         delete(*AllWorkersIterator);
         AllWorkersIterator++;
     }
 
 }
-void HighTech::deletCompanyTree(CompaniesTree_t* Companies){
-    return;
+void HighTech::deleteCompanyTree(CompaniesTree_t* Companies){
+    if(Companies==NULL){
+        return;
+    }
+    CompaniesTreeIterator companiesIterator = Companies->GetIterator();
+    while(*companiesIterator!=NULL){
+        deletWorkerTree(companiesIterator.value()->workers);
+        delete(*companiesIterator);
+        companiesIterator++;
+    }
+}
+void HighTech::printTree(AllWorkersTree_t* PostTree){
+    AllWorkersTreeIterator AllWorkersIterator = AllWorkersTree->GetIterator();
+    while (*AllWorkersIterator != NULL){
+        printf("'worker id - %d\n",(*AllWorkersIterator)->getId());
+        AllWorkersIterator++;
+    }
 }

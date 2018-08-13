@@ -4,7 +4,7 @@
 #include "AvlTree.h"
 #include "Worker.h"
 
-#define WorkersTree_t AvlTree<int, Worker*, IntComparer>
+#define WorkersTree_t AvlTree<int, Worker*, rankThanId>
 #define WorkersTreeIterator WorkersTree_t::Iterator
 
 
