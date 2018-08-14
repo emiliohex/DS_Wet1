@@ -9,9 +9,10 @@ add_executable(DS_Wet1
         AvlTree.h
         Company.cpp
         Company.h
+        compare.h
         HighTech.cpp
         HighTech.h
         library1.cpp
         library1.h
         main1.cpp
-        Worker.h compare.h)
+        Worker.h rankAndId.h)

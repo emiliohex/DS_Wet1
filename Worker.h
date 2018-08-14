@@ -1,7 +1,7 @@
 #ifndef WORKER_H_
 #define WORKER_H_
 
-#include "Company.h"
+#include "rankAndId.h"
 class Company;
 
 class Worker {
@@ -31,6 +31,9 @@ public:
 	Company* getCompany(){
 		return this->company;
 	}
+    rankAndId* getRankAndId() {
+        return new rankAndId(this->workerId, this->rank);
+    }
 };
 
 #endif

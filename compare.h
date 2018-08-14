@@ -20,12 +20,12 @@ public:
 
 class rankThanId {
 public:
-    int operator()(Worker* a, Worker* b) {
+    int operator()(rankAndId* a, rankAndId* b) {
         if(a->getRank() == b->getRank()) {
-            if(a->getId() == b->getId()) {
+            if(a->getWorkerId() == b->getWorkerId()) {
                 return 0;
             }
-            else if (a->getId() > b->getId()) {
+            else if (a->getWorkerId() > b->getWorkerId()) {
                 return -1; // the post with the smaller post id should be greater
             }
 

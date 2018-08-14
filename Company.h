@@ -2,12 +2,10 @@
 #define COMPANY_H_
 
 #include "AvlTree.h"
-//#include "Worker.h"
+#include "Worker.h"
 #include "compare.h"
 
-#define WorkersTree_t AvlTree<int, Worker*, rankThanId>
-
-class Worker;
+#define WorkersTree_t AvlTree<rankAndId* , Worker*, rankThanId>
 
 class Company {
 private:

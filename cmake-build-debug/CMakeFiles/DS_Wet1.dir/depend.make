@@ -10,6 +10,7 @@ CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj: ../HighTech.h
 CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj: ../Worker.h
 CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj: ../compare.h
 CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj: ../library1.h
+CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj: ../rankAndId.h
 
 CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../AvlTree.h
 CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../Company.h
@@ -18,6 +19,7 @@ CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../Worker.h
 CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../compare.h
 CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../library1.cpp
 CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../library1.h
+CMakeFiles/DS_Wet1.dir/library1.cpp.obj: ../rankAndId.h
 
 CMakeFiles/DS_Wet1.dir/main1.cpp.obj: ../library1.h
 CMakeFiles/DS_Wet1.dir/main1.cpp.obj: ../main1.cpp
