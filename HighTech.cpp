@@ -83,14 +83,16 @@ StatusType HighTech::removeWorker(int workerID){
     }
     rankAndId* newRankAndId = WorkerExists->getRankAndId();
     Company* newCompany = WorkerExists->getCompany();
-    newCompany->workers->Delete(newRankAndId);
+    if(newCompany!=NULL){
+        newCompany->workers->Delete(newRankAndId);
+    }
     this->Workers->Delete(workerID);
     this->AllWorkersTree->Delete(newRankAndId);
     return SUCCESS;
 }
 
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
-    if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
+   /* if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
         return INVALID_INPUT;
     }
 
@@ -125,7 +127,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
 
 
 
-
+*/
 return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){
@@ -137,20 +139,27 @@ StatusType HighTech::changeRank(int workerID, int newRank){
     if( WorkerExists==NULL){
         return FAILURE;
     }
-
+    rankAndId* newRankAndId = WorkerExists->getRankAndId();
     Company* workerCompany= WorkerExists->getCompany();
-
-    //worker doesn't belong to a company
-    if(workerCompany==NULL){
-    this->removeWorker(workerID);
-    this->addWorker(workerID,newRank);
+    if(workerCompany!=NULL){
+        workerCompany->workers->Delete(newRankAndId);
     }
-    //worker belong to a company
-    else{
-        int workerCompanyId= WorkerExists->getCompany()->getId();
-        this->removeWorker(workerID);
-        this->addWorker(workerID,newRank);
-        this->addworkerToCompany(workerID,workerCompanyId);
+    this->AllWorkersTree->Delete(newRankAndId);
+    this->Workers->Delete(workerID);
+
+    WorkerExists->changeRank(newRank);
+
+    newRankAndId = WorkerExists->getRankAndId();
+    if(workerCompany!=NULL){
+        if(workerCompany->workers->Insert(newRankAndId,WorkerExists)==false){
+            return ALLOCATION_ERROR;
+        }
+    }
+    if(this->AllWorkersTree->Insert(newRankAndId,WorkerExists)==false){
+        return ALLOCATION_ERROR;
+    }
+    if(this->Workers->Insert(workerID,WorkerExists)==false){
+        return ALLOCATION_ERROR;
     }
     return SUCCESS;
 }
