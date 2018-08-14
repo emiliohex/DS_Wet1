@@ -92,7 +92,7 @@ StatusType HighTech::removeWorker(int workerID){
 }
 
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
-   /* if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
+    if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
         return INVALID_INPUT;
     }
 
@@ -107,6 +107,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     int workersCompanyLength1;
     int workersCompanyLength2;
 
+
     Company1Exists->workers->treeArrayByData(&workersCompanyLength1,&workersCompany1);
     Company2Exists->workers->treeArrayByData(&workersCompanyLength2,&workersCompany2);
 
@@ -120,14 +121,36 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     }
 
     while((workersCompany2)[j]->getRank()<minimalRank){
-        minimalWorkers1++;
+        minimalWorkers2++;
         j++;
     }
 
+    Worker** qualifiedWorkers1=(Worker**) malloc(sizeof(Worker) * (workersCompanyLength1-minimalWorkers1));
+    Worker** qualifiedWorkers2=(Worker**) malloc(sizeof(Worker) * (workersCompanyLength2-minimalWorkers2));
+
+    int newWorkersArray1Counter=0;
+    int newWorkersArray2Counter=0;
+
+    //substracting the minimal workers from origin array
+
+    for(int k=minimalWorkers1-1;k<workersCompanyLength1;k++){
+        qualifiedWorkers1[newWorkersArray1Counter]=workersCompany1[k];
+        newWorkersArray1Counter++;
+    }
+
+    for(int t=minimalWorkers2-1;t<workersCompanyLength2;t++){
+        qualifiedWorkers2[newWorkersArray2Counter]=workersCompany2[t];
+        newWorkersArray2Counter++;
+    }
+
+
+    Worker** workerCompany3 = (Worker**) malloc(sizeof(Worker) * (workersCompanyLength1 + workersCompanyLength2
+            -minimalWorkers1-minimalWorkers2));
 
 
 
-*/
+
+
 return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){

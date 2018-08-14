@@ -408,10 +408,14 @@ private:
 		delete (node);
 	}
 
-    /**************************************************************
- * description: copies the tree to  array
- ***************************************************************/
+
 public:
+
+
+    /**************************************************************
+* description: copies the tree to  array
+***************************************************************/
+
     void treeArrayByData(int* length, DataType** dataArray) {
         if (!getNodesCount()) {
             *dataArray = NULL;
@@ -427,7 +431,7 @@ public:
         assert(index == *length);
         return;
     }
-public:
+
 
     void AuxtreeArrayByData(DataType** dataArray, int* index,
                             AvlTreeNode* cNode) {
@@ -443,16 +447,20 @@ public:
 
 
     //creates a complete tree with a height of depth
-     AvlTreeNode* FullTree(int depth) {
-        if (depth == 0)
+    AvlTreeNode* FullTree(int depth) {
+        if (depth == -1)
             return NULL;
         AvlTreeNode* Root = new AvlTreeNode(0, NULL);
         Root->setHeightLeft(depth - 1);
         Root->setHeightRight(depth - 1);
         Root->setLeft(FullTree(depth - 1));
-        Root->getLeft()->setParent(this);
+        if(Root->getLeft()!=NULL){
+            Root->getLeft()->setParent(this);
+        }
         Root->setRight(FullTree(depth - 1));
-        Root->getRight()->setParent(this);
+        if(Root->getLeft()!=NULL){
+            Root->getRight()->setParent(this);
+        }
         return Root;
     }
 //checks if a node is a leaf
@@ -491,9 +499,25 @@ public:
         }
     }
 
-public:
 
-	class Iterator {
+     void reverseInOrderCopyArray(AvlTreeNode* node, DataType** Array,
+                                   int* len, int* index){
+        if (*len == *index || node == NULL)
+            return;
+        reverseInOrderCopyArray(node->getRight(), Array, len, index);
+        if (*len == *index || node == NULL)
+            return;
+        node->setData(Array[*index]);
+        node->setKey(Array[*index]->getID());
+
+        (*index)++;
+
+        reverseInOrderCopyArray(node->getLeft(), Array, len, index);
+        return;
+    }
+
+
+    class Iterator {
 	private:
 
 	public:
