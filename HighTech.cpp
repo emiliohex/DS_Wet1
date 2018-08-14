@@ -245,3 +245,4 @@ void HighTech::printTree(AllWorkersTreeRank_t* workerTree){
         AllWorkersIterator++;
     }
 }
+

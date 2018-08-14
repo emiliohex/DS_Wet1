@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-D:/DS/DS_Wet1/AvlTree.h
+C:/Technion/DS/DS_Wet1/AvlTree.h
 stddef.h
 -
 stdlib.h
@@ -16,51 +16,51 @@ iostream
 assert.h
 -
 
-D:/DS/DS_Wet1/Company.h
+C:/Technion/DS/DS_Wet1/Company.h
 AvlTree.h
-D:/DS/DS_Wet1/AvlTree.h
+C:/Technion/DS/DS_Wet1/AvlTree.h
 Worker.h
-D:/DS/DS_Wet1/Worker.h
+C:/Technion/DS/DS_Wet1/Worker.h
 compare.h
-D:/DS/DS_Wet1/compare.h
+C:/Technion/DS/DS_Wet1/compare.h
 
-D:/DS/DS_Wet1/HighTech.cpp
+C:/Technion/DS/DS_Wet1/HighTech.cpp
 HighTech.h
-D:/DS/DS_Wet1/HighTech.h
+C:/Technion/DS/DS_Wet1/HighTech.h
 stdio.h
 -
 stdlib.h
 -
 
-D:/DS/DS_Wet1/HighTech.h
+C:/Technion/DS/DS_Wet1/HighTech.h
 library1.h
-D:/DS/DS_Wet1/library1.h
+C:/Technion/DS/DS_Wet1/library1.h
 AvlTree.h
-D:/DS/DS_Wet1/AvlTree.h
+C:/Technion/DS/DS_Wet1/AvlTree.h
 Company.h
-D:/DS/DS_Wet1/Company.h
+C:/Technion/DS/DS_Wet1/Company.h
 Worker.h
-D:/DS/DS_Wet1/Worker.h
+C:/Technion/DS/DS_Wet1/Worker.h
 compare.h
-D:/DS/DS_Wet1/compare.h
+C:/Technion/DS/DS_Wet1/compare.h
 rankAndId.h
-D:/DS/DS_Wet1/rankAndId.h
+C:/Technion/DS/DS_Wet1/rankAndId.h
 
-D:/DS/DS_Wet1/Worker.h
+C:/Technion/DS/DS_Wet1/Worker.h
 rankAndId.h
-D:/DS/DS_Wet1/rankAndId.h
+C:/Technion/DS/DS_Wet1/rankAndId.h
 
-D:/DS/DS_Wet1/compare.h
+C:/Technion/DS/DS_Wet1/compare.h
 Worker.h
-D:/DS/DS_Wet1/Worker.h
+C:/Technion/DS/DS_Wet1/Worker.h
 
-D:/DS/DS_Wet1/library1.cpp
+C:/Technion/DS/DS_Wet1/library1.cpp
 library1.h
-D:/DS/DS_Wet1/library1.h
+C:/Technion/DS/DS_Wet1/library1.h
 HighTech.h
-D:/DS/DS_Wet1/HighTech.h
+C:/Technion/DS/DS_Wet1/HighTech.h
 
-D:/DS/DS_Wet1/library1.h
+C:/Technion/DS/DS_Wet1/library1.h
 
-D:/DS/DS_Wet1/rankAndId.h
+C:/Technion/DS/DS_Wet1/rankAndId.h
 

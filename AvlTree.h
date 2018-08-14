@@ -427,6 +427,7 @@ public:
         assert(index == *length);
         return;
     }
+public:
 
     void AuxtreeArrayByData(DataType** dataArray, int* index,
                             AvlTreeNode* cNode) {
@@ -438,6 +439,56 @@ public:
         (*dataArray)[*index] = cNode->getData();
         *index = *index + 1;
         AuxtreeArrayByData(dataArray, index, cNode->getRight());
+    }
+
+
+    //creates a complete tree with a height of depth
+     AvlTreeNode* FullTree(int depth) {
+        if (depth == 0)
+            return NULL;
+        AvlTreeNode* Root = new AvlTreeNode(0, NULL);
+        Root->setHeightLeft(depth - 1);
+        Root->setHeightRight(depth - 1);
+        Root->setLeft(FullTree(depth - 1));
+        Root->getLeft()->setParent(this);
+        Root->setRight(FullTree(depth - 1));
+        Root->getRight()->setParent(this);
+        return Root;
+    }
+//checks if a node is a leaf
+    bool isLeaf(AvlTreeNode* node){
+        if(node->getNumOfChildern()==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+//deletes certain number of leafs in a complete tree
+    void deletepOrder(AvlTreeNode* node,
+                      int* num) {
+        if (!node || isLeaf(node)) {
+            return;
+        }
+        if (!num || *num == 0) {
+            return;
+        }
+        if (isLeaf(node->getRight()) && num[0]) {
+            Delete(node->getRight());
+            (*num)--;
+            node->setRight(NULL);
+        } else {
+            deletepOrder(node->getRight(), num);
+        }
+        if(num[0] <= 0) {
+            return;
+        }
+        if (isLeaf(node->getLeft()) && num[0]) {
+            (*num)--;
+            Delete(node->getLeft());
+            node->setLeft(NULL);
+        } else {
+            deletepOrder(node->getLeft(), num);
+        }
     }
 
 public:
