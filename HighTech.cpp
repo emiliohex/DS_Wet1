@@ -75,15 +75,15 @@ StatusType HighTech::removeWorker(int workerID){
     if( WorkerExists==NULL){
         return FAILURE;
     }
-    WorkerExists->getCompany()->workers->Delete(WorkerExists->getCompany()->workers->Find(workerID));
+    WorkerExists->getCompany()->workers->Delete(WorkerExists->getCompany()->workers->Find(workerID)->getId());
     this->AllWorkersTree->Delete(workerID);
     return SUCCESS;
 }
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
-
+    return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){
-
+    return SUCCESS;
 }
 StatusType HighTech::getBestWorker(int companyID, int *workerID){
     if(workerID==NULL || companyID==0){

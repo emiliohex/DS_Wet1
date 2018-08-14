@@ -2,11 +2,12 @@
 #define COMPANY_H_
 
 #include "AvlTree.h"
-#include "Worker.h"
+//#include "Worker.h"
+#include "compare.h"
 
 #define WorkersTree_t AvlTree<int, Worker*, rankThanId>
-#define WorkersTreeIterator WorkersTree_t::Iterator
 
+class Worker;
 
 class Company {
 private:
@@ -34,15 +35,6 @@ public:
 		bestWorker = NULL;
 	}
 
-	~Company() {
-		WorkersTreeIterator = workers->GetIterator();
-		while (*WorkersTreeIterator != NULL) {
-			delete(WorkersTreeIterator.key());
-			WorkersTreeIterator++;
-		}
-
-		delete(workers);
-	}
 };
 
 

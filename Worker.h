@@ -1,6 +1,9 @@
 #ifndef WORKER_H_
 #define WORKER_H_
 
+#include "Company.h"
+class Company;
+
 class Worker {
 private:
 	int workerId;
