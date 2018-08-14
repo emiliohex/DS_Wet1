@@ -3,6 +3,7 @@
 
 #include "AvlTree.h"
 #include "Worker.h"
+#include "compare.h"
 
 #define WorkersTree_t AvlTree<int, Worker*, rankThanId>
 #define WorkersTreeIterator WorkersTree_t::Iterator

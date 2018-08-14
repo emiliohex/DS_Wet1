@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -406,6 +407,38 @@ private:
 
 		delete (node);
 	}
+
+    /**************************************************************
+ * description: copies the tree to  array
+ ***************************************************************/
+public:
+    void treeArrayByData(int* length, DataType** dataArray) {
+        if (!getNodesCount()) {
+            *dataArray = NULL;
+            *length = 0;
+            return;
+        }
+
+        *length = getNodesCount();
+
+        *dataArray = (DataType*) malloc(sizeof(DataType) * (*length));
+        int index = 0;
+        AuxtreeArrayByData(dataArray, &index, this);
+        assert(index == *length);
+        return;
+    }
+
+    void AuxtreeArrayByData(DataType** dataArray, int* index,
+                            AvlTreeNode* cNode) {
+        if (cNode == NULL) {
+            return;
+        }
+
+        AuxtreeArrayByData(dataArray, index, cNode->getLeft());
+        (*dataArray)[*index] = cNode->getData();
+        *index = *index + 1;
+        AuxtreeArrayByData(dataArray, index, cNode->getRight());
+    }
 
 public:
 

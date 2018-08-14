@@ -80,10 +80,69 @@ StatusType HighTech::removeWorker(int workerID){
     return SUCCESS;
 }
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
+    if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
+        return INVALID_INPUT;
+    }
 
+    Company* Company1Exists = this->Companies->Find(companyID1);
+    Company* Company2Exists = this->Companies->Find(companyID2);
+    if( Company1Exists==NULL || Company2Exists==NULL){
+        return FAILURE;
+    }
+
+    Worker** workersCompany1;
+    Worker** workersCompany2;
+    int workersCompanyLength1;
+    int workersCompanyLength2;
+
+    Company1Exists->workers->treeArrayByData(&workersCompanyLength1,&workersCompany1);
+    Company2Exists->workers->treeArrayByData(&workersCompanyLength2,&workersCompany2);
+
+    int minimalWorkers1=0;//number of workers in company 1 with lower than minimal rank
+    int minimalWorkers2=0;//number of workers in company 2 with lower than minimal rank
+
+    int i=0,j=0;//indexes for while loops
+    while((workersCompany1)[i]->getRank()<minimalRank){
+    minimalWorkers1++;
+    i++;
+    }
+
+    while((workersCompany2)[j]->getRank()<minimalRank){
+        minimalWorkers1++;
+        j++;
+    }
+
+
+
+
+
+return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){
+    if(workerID <= 0 || newRank <= 0 ){
+        return INVALID_INPUT;
+    }
 
+    Worker* WorkerExists = this->AllWorkersTree->Find(workerID);
+    if( WorkerExists==NULL){
+        return FAILURE;
+    }
+
+    Company* workerCompany= WorkerExists->getCompany();
+
+    //worker doesn't belong to a company
+    if(workerCompany==NULL){
+    this->removeWorker(workerID);
+    this->addWorker(workerID,newRank);
+    }
+    //worker belong to a company
+    else{
+        int workerCompanyId= WorkerExists->getCompany()->getId();
+        this->removeWorker(workerID);
+        this->addWorker(workerID,newRank);
+        this->addworkerToCompany(workerID,workerCompanyId);
+    }
+    return SUCCESS;
 }
 StatusType HighTech::getBestWorker(int companyID, int *workerID){
     if(workerID==NULL || companyID==0){
@@ -162,7 +221,7 @@ void HighTech::deleteCompanyTree(CompaniesTree_t* Companies){
     }
     CompaniesTreeIterator companiesIterator = Companies->GetIterator();
     while(*companiesIterator!=NULL){
-        deletWorkerTree(companiesIterator.value()->workers);
+       deleteWorkerTree(companiesIterator.value()->workers);
         delete(*companiesIterator);
         companiesIterator++;
     }
