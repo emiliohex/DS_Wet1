@@ -5,8 +5,43 @@
 #include <stdlib.h>
 #include <iostream>
 #include <assert.h>
+#include "Worker.h"
 
 using namespace std;
+
+static int exp(int x, int p) {
+    int y=1;
+    while(p!=0){
+        y*=x;
+        p--;
+    }
+    return y;
+}
+
+static void mergeArrays(Worker** a, int na, Worker** b, int nb, Worker** c) {
+    int ia, ib, ic;
+    for (ia = ib = ic = 0; (ia < na) && (ib < nb); ic++) {
+        if (a[ia]->getRank() < b[ib]->getRank()) {
+            c[ic] = a[ia];
+            ia++;
+        } else if(a[ia]->getRank() == b[ib]->getRank()) {
+                if(a[ia]->getId() > b[ib]->getId()){
+                    c[ic] = a[ia];
+                    ia++;
+                }else{
+                    c[ic] = b[ib];
+                    ib++;
+                }
+        }else{
+            c[ic] = b[ib];
+            ib++;
+        }
+    }
+    for (; ia < na; ia++, ic++)
+        c[ic] = a[ia];
+    for (; ib < nb; ib++, ic++)
+        c[ic] = b[ib];
+}
 
 template<typename KeyType, typename DataType, class CompareFunction>
 class AvlTree {
@@ -438,16 +473,15 @@ public:
         if (cNode == NULL) {
             return;
         }
-
-        AuxtreeArrayByData(dataArray, index, cNode->getLeft());
+        AuxtreeArrayByData(dataArray, index, cNode->getRight());
         (*dataArray)[*index] = cNode->getData();
         *index = *index + 1;
-        AuxtreeArrayByData(dataArray, index, cNode->getRight());
+        AuxtreeArrayByData(dataArray, index, cNode->getLeft());
     }
 
 
     //creates a complete tree with a height of depth
-    AvlTreeNode* FullTree(int depth) {
+    static AvlTreeNode* FullTree(int depth) {
         if (depth == -1)
             return NULL;
         AvlTreeNode* Root = new AvlTreeNode(0, NULL);
@@ -464,7 +498,7 @@ public:
         return Root;
     }
 //checks if a node is a leaf
-    bool isLeaf(AvlTreeNode* node){
+    static bool isLeaf(AvlTreeNode* node){
         if(node->getNumOfChildern()==0){
             return true;
         }else{
@@ -472,7 +506,7 @@ public:
         }
     }
 //deletes certain number of leafs in a complete tree
-    void deletepOrder(AvlTreeNode* node,
+   static void deletepOrder(AvlTreeNode* node,
                       int* num) {
         if (!node || isLeaf(node)) {
             return;
@@ -500,7 +534,7 @@ public:
     }
 
 
-     void reverseInOrderCopyArray(AvlTreeNode* node, DataType** Array,
+     static void reverseInOrderCopyArray(AvlTreeNode* node, DataType** Array,
                                    int* len, int* index){
         if (*len == *index || node == NULL)
             return;

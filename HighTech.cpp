@@ -92,7 +92,7 @@ StatusType HighTech::removeWorker(int workerID){
 }
 
 StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalRank){
-    if(companyID1 <= 0 || companyID2 <= 0 || minimalRank<=0){
+    if(companyID1 <= 0 || companyID2 <= 0 || companyID1 ==companyID2 || minimalRank<=0){
         return INVALID_INPUT;
     }
 
@@ -111,41 +111,74 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     Company1Exists->workers->treeArrayByData(&workersCompanyLength1,&workersCompany1);
     Company2Exists->workers->treeArrayByData(&workersCompanyLength2,&workersCompany2);
 
-    int minimalWorkers1=0;//number of workers in company 1 with lower than minimal rank
-    int minimalWorkers2=0;//number of workers in company 2 with lower than minimal rank
+    int goodWorkers1=0;//number of workers in company 1 with higher than minimal rank
+    int goodWorkers2=0;//number of workers in company 2 with higher than minimal rank
 
     int i=0,j=0;//indexes for while loops
-    while((workersCompany1)[i]->getRank()<minimalRank){
-    minimalWorkers1++;
+    while((workersCompany1)[i]->getRank()>=minimalRank){
+    goodWorkers1++;
     i++;
     }
 
-    while((workersCompany2)[j]->getRank()<minimalRank){
-        minimalWorkers2++;
+    while((workersCompany2)[j]->getRank()>=minimalRank){
+        goodWorkers2++;
         j++;
     }
 
-    Worker** qualifiedWorkers1=(Worker**) malloc(sizeof(Worker) * (workersCompanyLength1-minimalWorkers1));
-    Worker** qualifiedWorkers2=(Worker**) malloc(sizeof(Worker) * (workersCompanyLength2-minimalWorkers2));
+    Worker** qualifiedWorkers1=(Worker**) malloc(sizeof(Worker) * (goodWorkers1));
+    Worker** qualifiedWorkers2=(Worker**) malloc(sizeof(Worker) * (goodWorkers2));
 
-    int newWorkersArray1Counter=0;
-    int newWorkersArray2Counter=0;
+
 
     //substracting the minimal workers from origin array
 
-    for(int k=minimalWorkers1-1;k<workersCompanyLength1;k++){
-        qualifiedWorkers1[newWorkersArray1Counter]=workersCompany1[k];
-        newWorkersArray1Counter++;
+    for(int k=0;k<goodWorkers1;k++){
+        qualifiedWorkers1[k]=workersCompany1[k];
     }
 
-    for(int t=minimalWorkers2-1;t<workersCompanyLength2;t++){
-        qualifiedWorkers2[newWorkersArray2Counter]=workersCompany2[t];
-        newWorkersArray2Counter++;
+    for(int t=0;t<goodWorkers2;t++){
+        qualifiedWorkers2[t]=workersCompany2[t];
     }
 
 
-    Worker** workerCompany3 = (Worker**) malloc(sizeof(Worker) * (workersCompanyLength1 + workersCompanyLength2
-            -minimalWorkers1-minimalWorkers2));
+    Worker** workerCompany3 = (Worker**) malloc(sizeof(Worker) * (goodWorkers1+goodWorkers2));
+
+    //merge qualifiedWorkers1+qualifiedWorkers2 into workerCompany3;
+
+    mergeArrays(qualifiedWorkers1,goodWorkers1,qualifiedWorkers2,goodWorkers2,workerCompany3);
+
+    //calc the depth of full tree with good workers 1 +2
+    int depth= (int)log2(goodWorkers1+goodWorkers2);
+
+    //creating a complete tree to push the final merged good workers
+    AvlTree<rankAndId* , Worker*, rankThanId>* mergedCompanyWorkers=AvlTree::FullTree(depth+1);
+
+    int numDelete=exp(2,1+depth)-1-(goodWorkers1+goodWorkers2);
+
+    AvlTree::deletepOrder(mergedCompanyWorkers,&numDelete);
+    int index=0;
+    int len=goodWorkers1+goodWorkers2;
+
+    AvlTree::reverseInOrderCopyArray(mergedCompanyWorkers,workerCompany3,&len,&index);
+
+    //set new merged compamy settings
+    int mergedCompanyID;
+
+    if(workersCompanyLength1>workersCompanyLength2){
+        mergedCompanyID=companyID1;
+    }else if(workersCompanyLength1==workersCompanyLength2){
+        if(companyID1<companyID2){
+            mergedCompanyID=companyID1;
+        }else{
+            mergedCompanyID=companyID2;
+        }
+    }else{
+        mergedCompanyID=companyID2;
+    }
+
+
+
+
 
 
 

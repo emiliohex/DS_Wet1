@@ -7,6 +7,7 @@
 #include "Worker.h"
 #include "compare.h"
 #include "rankAndId.h"
+#include "math.h"
 
 #define CompaniesTree_t AvlTree<int, Company*, IntComparer>
 #define AllWorkersTreeId_t AvlTree<int, Worker*, IntComparer>
