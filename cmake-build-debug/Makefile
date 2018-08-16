@@ -38,19 +38,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.2.1\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2018.2\bin\cmake\win\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files\JetBrains\CLion 2018.2.1\bin\cmake\win\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Technion\DS\DS_Wet1
+CMAKE_SOURCE_DIR = D:\DS\DS_Wet1\DS_Wet1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Technion\DS\DS_Wet1\cmake-build-debug
+CMAKE_BINARY_DIR = D:\DS\DS_Wet1\DS_Wet1\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -58,7 +58,7 @@ CMAKE_BINARY_DIR = C:\Technion\DS\DS_Wet1\cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\JetBrains\CLion 2018.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2018.2.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,7 +69,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2018.2\bin\cmake\win\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2018.2.1\bin\cmake\win\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Technion\DS\DS_Wet1\cmake-build-debug\CMakeFiles C:\Technion\DS\DS_Wet1\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\DS\DS_Wet1\DS_Wet1\cmake-build-debug\CMakeFiles D:\DS\DS_Wet1\DS_Wet1\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Technion\DS\DS_Wet1\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\DS\DS_Wet1\DS_Wet1\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,17 +110,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DS_Wet1
+# Target rules for targets named Wet1
 
 # Build rule for target.
-DS_Wet1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 DS_Wet1
-.PHONY : DS_Wet1
+Wet1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 Wet1
+.PHONY : Wet1
 
 # fast build rule for target.
-DS_Wet1/fast:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/build
-.PHONY : DS_Wet1/fast
+Wet1/fast:
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/build
+.PHONY : Wet1/fast
 
 Company.obj: Company.cpp.obj
 
@@ -128,7 +128,7 @@ Company.obj: Company.cpp.obj
 
 # target to build an object file
 Company.cpp.obj:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/Company.cpp.obj
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/Company.cpp.obj
 .PHONY : Company.cpp.obj
 
 Company.i: Company.cpp.i
@@ -137,7 +137,7 @@ Company.i: Company.cpp.i
 
 # target to preprocess a source file
 Company.cpp.i:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/Company.cpp.i
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/Company.cpp.i
 .PHONY : Company.cpp.i
 
 Company.s: Company.cpp.s
@@ -146,7 +146,7 @@ Company.s: Company.cpp.s
 
 # target to generate assembly for a file
 Company.cpp.s:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/Company.cpp.s
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/Company.cpp.s
 .PHONY : Company.cpp.s
 
 HighTech.obj: HighTech.cpp.obj
@@ -155,7 +155,7 @@ HighTech.obj: HighTech.cpp.obj
 
 # target to build an object file
 HighTech.cpp.obj:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/HighTech.cpp.obj
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/HighTech.cpp.obj
 .PHONY : HighTech.cpp.obj
 
 HighTech.i: HighTech.cpp.i
@@ -164,7 +164,7 @@ HighTech.i: HighTech.cpp.i
 
 # target to preprocess a source file
 HighTech.cpp.i:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/HighTech.cpp.i
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/HighTech.cpp.i
 .PHONY : HighTech.cpp.i
 
 HighTech.s: HighTech.cpp.s
@@ -173,7 +173,7 @@ HighTech.s: HighTech.cpp.s
 
 # target to generate assembly for a file
 HighTech.cpp.s:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/HighTech.cpp.s
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/HighTech.cpp.s
 .PHONY : HighTech.cpp.s
 
 library1.obj: library1.cpp.obj
@@ -182,7 +182,7 @@ library1.obj: library1.cpp.obj
 
 # target to build an object file
 library1.cpp.obj:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/library1.cpp.obj
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/library1.cpp.obj
 .PHONY : library1.cpp.obj
 
 library1.i: library1.cpp.i
@@ -191,7 +191,7 @@ library1.i: library1.cpp.i
 
 # target to preprocess a source file
 library1.cpp.i:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/library1.cpp.i
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/library1.cpp.i
 .PHONY : library1.cpp.i
 
 library1.s: library1.cpp.s
@@ -200,7 +200,7 @@ library1.s: library1.cpp.s
 
 # target to generate assembly for a file
 library1.cpp.s:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/library1.cpp.s
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/library1.cpp.s
 .PHONY : library1.cpp.s
 
 main1.obj: main1.cpp.obj
@@ -209,7 +209,7 @@ main1.obj: main1.cpp.obj
 
 # target to build an object file
 main1.cpp.obj:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/main1.cpp.obj
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main1.cpp.obj
 .PHONY : main1.cpp.obj
 
 main1.i: main1.cpp.i
@@ -218,7 +218,7 @@ main1.i: main1.cpp.i
 
 # target to preprocess a source file
 main1.cpp.i:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/main1.cpp.i
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main1.cpp.i
 .PHONY : main1.cpp.i
 
 main1.s: main1.cpp.s
@@ -227,7 +227,7 @@ main1.s: main1.cpp.s
 
 # target to generate assembly for a file
 main1.cpp.s:
-	$(MAKE) -f CMakeFiles\DS_Wet1.dir\build.make CMakeFiles/DS_Wet1.dir/main1.cpp.s
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main1.cpp.s
 .PHONY : main1.cpp.s
 
 # Help Target
@@ -236,7 +236,7 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... DS_Wet1
+	@echo ... Wet1
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Company.obj

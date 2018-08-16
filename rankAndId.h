@@ -1,6 +1,6 @@
 
-#ifndef DS_WET1_RANKANDID_H
-#define DS_WET1_RANKANDID_H
+#ifndef RANKANDID_H
+#define RANKANDID_H
 
 class rankAndId {
 private:
@@ -21,14 +21,7 @@ public:
         return this->rank;
     }
 
-    void setWorkerId(int workerId) {
-        this->workerId = workerId;
-    }
-
-    void setRank(int rank) {
-        this->rank = rank;
-    }
 };
 
 
-#endif //DS_WET1_RANKANDID_H
+#endif

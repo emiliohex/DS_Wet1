@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
-project(DS_Wet1)
+project(Wet1)
 
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(DS_Wet1
+add_executable(Wet1
         AvlTree.h
         Company.cpp
         Company.h
@@ -15,4 +15,5 @@ add_executable(DS_Wet1
         library1.cpp
         library1.h
         main1.cpp
-        Worker.h rankAndId.h)
+        rankAndId.h
+        Worker.h)

@@ -28,6 +28,7 @@ private:
 	void deleteWorkerTree(AllWorkersTreeRank_t* AllWorkersTree);
 	void deleteCompanyTree(CompaniesTree_t* Companies);
 	void printTree(AllWorkersTreeRank_t* PostTree);
+	void merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]);
 
 
 public:

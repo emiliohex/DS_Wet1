@@ -1,4 +1,4 @@
-ToolSet: 5.0@C:\MinGW
+ToolSet: 3.22@C:\MinGW
 Options: 
 
 Options:

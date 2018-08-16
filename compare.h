@@ -1,5 +1,5 @@
-#ifndef DS_WET1_COMPARE_H
-#define DS_WET1_COMPARE_H
+#ifndef COMPARE_H
+#define COMPARE_H
 
 #include "Worker.h"
 
@@ -38,4 +38,4 @@ public:
     }
 };
 
-#endif //DS_WET1_COMPARE_H
+#endif

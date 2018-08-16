@@ -1,2 +1,2 @@
-# Empty dependencies file for DS_Wet1.
+# Empty dependencies file for Wet1.
 # This may be replaced when dependencies are built.
