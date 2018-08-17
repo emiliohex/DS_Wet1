@@ -606,7 +606,7 @@ public:
 
 
     AvlTree(int size){
-        head = FullTree((int)log2(size)+1);
+        head = FullTree((int)log2(size));
         nodeCount = size;
     }
     static AvlTreeNode* FullTree(int depth) {
@@ -625,52 +625,55 @@ public:
         }
         return Root;
     }
-    void deleteFullTreeOrder(int* num){
+    void deleteFullTreeOrder(int num){
+        //printf("num is - %d\n",num);
         return deletepOrder(this->head,num);
     }
     //deletes certain number of leafs in a complete tree
-     void deletepOrder(AvlTreeNode* node,int* num) {
-        if (this->head || node->getNumOfChildern()==0) {
+     void deletepOrder(AvlTreeNode* node,int num) {
+        if (node->getNumOfChildern()==0) {
             return;
         }
-        if (!num || *num == 0) {
+        if ( num == 0) {
             return;
         }
-        if (node->getRight()->getNumOfChildern()==0 && num[0]) {
+        //printf("node->getRight()->getNumOfChildern() is - %d\n",node->getRight()->getNumOfChildern());
+        if (node->getRight()->getNumOfChildern()==0 ) {
             Delete(node->getRight());
-            (*num)--;
+            (num)--;
             node->setRight(NULL);
         } else {
             deletepOrder(node->getRight(), num);
         }
-        if(num[0] <= 0) {
+        //printf("num is - %d\n",num);
+        if(num <= 0) {
             return;
         }
-        if (node->getLeft()->getNumOfChildern()==0 && num[0]) {
-            (*num)--;
+        if (node->getLeft()->getNumOfChildern()==0 && num) {
+            (num)--;
             Delete(node->getLeft());
             node->setLeft(NULL);
         } else {
             deletepOrder(node->getLeft(), num);
         }
     }
-    void InOrderCopyArray(DataType* Array, int* len, int* index){
-        return InOrderCopyArrayAux(this->head,Array,len,index);
+    void InOrderCopyArray(DataType* Array, int len, int index){
+        return InOrderCopyArrayAux(this->head,Array,len,&index);
     }
-    static void InOrderCopyArrayAux(AvlTreeNode* node, DataType* Array,
-                                        int* len, int* index){
-        if (*len == *index || node == NULL)
+    static void InOrderCopyArrayAux(AvlTreeNode* node, DataType* Array,int len, int *index){
+        if (len == *index || node==NULL)
             return;
-        InOrderCopyArrayAux(node->getLeft(), Array, len, index);
-
-        if (*len == *index || node == NULL)
+        //printf("InOrderCopyArrayAux\n");
+        InOrderCopyArrayAux(node->getRight(), Array, len, index);
+        //printf("OK12 - InOrderCopyArrayAux\n");
+        if (len == *index || node == NULL)
             return;
         node->setData(Array[*index]);
+        //printf("index-%d,array - %d\n",*index,Array[*index]->getId());
         node->setKey(Array[*index]->getRankAndId());
-
         (*index)++;
 
-        InOrderCopyArrayAux(node->getRight(), Array, len, index);
+        InOrderCopyArrayAux(node->getLeft(), Array, len, index);
         return;
     }
     DataType* createDataArray() {
@@ -680,6 +683,7 @@ public:
         Iterator it = this->GetIterator();
         while(*it!=NULL){
             arr[i++] = (*it);
+            //printf("arr[%d] - %d\n",i-1,arr[i-1]->getId());
             it++;
         }
         return arr;

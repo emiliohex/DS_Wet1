@@ -102,15 +102,15 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     if( Company1Exists==NULL || Company2Exists==NULL){
         return FAILURE;
     }
-    printf("OK1 - %d\n",Company1Exists->getId());
+    //printf("OK1 - %d\n",Company1Exists->getId());
     int newCompanyId;
     if(Company1Exists->workers->getNodesCount() >= Company1Exists->workers->getNodesCount()){
         newCompanyId=Company1Exists->getId();
     }else{
         newCompanyId=Company2Exists->getId();
     }
-    printf("OK2 - %d\n",newCompanyId);
-    printf("OK3 - %d\n",Company1Exists->getBestWorker()->getRank());
+    //printf("OK2 - %d\n",newCompanyId);
+    //printf("OK3 - %d\n",Company1Exists->getBestWorker()->getRank());
     Worker* mergedBestWorker;
     if(Company1Exists->getBestWorker()==NULL||Company1Exists->getBestWorker()->getRank()>=Company2Exists->getBestWorker()->getRank()){
         mergedBestWorker=Company1Exists->getBestWorker();
@@ -120,47 +120,77 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     if(mergedBestWorker->getRank()<minimalRank){
         mergedBestWorker=NULL;
     }
-    printf("OK3\n");
+    //printf("mergedBestWorker-%d\n",mergedBestWorker->getId());
     Worker** allWorkers1;
     allWorkers1=Company1Exists->workers->createDataArray();
     Worker** allWorkers2;
     allWorkers2 =Company2Exists->workers->createDataArray();
-    printf("OK4\n");
+    //printf("OK4\n");
+
+    int j=0;
+    while(j<Company1Exists->workers->getNodesCount()&& allWorkers1[j]->getRank()>=minimalRank){
+        //printf("rank - %d , j - %d\n",allWorkers1[j]->getRank(),j);
+        j++;
+    }
+    if(j>Company1Exists->workers->getNodesCount()) j--;
+    //printf("j - %d\n",j);
+    int numFinalWorkers1 = j;
 
     int i=0;
-    while(allWorkers1[i]->getRank()<minimalRank){
+    while(i<Company2Exists->workers->getNodesCount() && allWorkers2[i]->getRank()>=minimalRank){
         i++;
     }
-    int numFinalWorkers1 = Company1Exists->workers->getNodesCount()-i+1;
-
-    i=0;
-    while(allWorkers2[i]->getRank()<minimalRank){
-        i++;
-    }
-    int numFinalWorkers2 = Company2Exists->workers->getNodesCount()-i+1;
-    printf("OK5\n");
+    if(i>Company2Exists->workers->getNodesCount()) i--;
+    //printf("i - %d\n",i);
+    int numFinalWorkers2 = i;
+    //printf("numFinalWorkers1 - %d\n",numFinalWorkers1);
+    //printf("numFinalWorkers2 - %d\n",numFinalWorkers2);
+    //printf("OK5\n");
 
     Worker** finalWorkers1=(Worker**) malloc(sizeof(Worker) * numFinalWorkers1);
     Worker** finalWorkers2=(Worker**) malloc(sizeof(Worker) * numFinalWorkers2);
     int t=0;
-    for(i=0;i<Company1Exists->workers->getNodesCount();i++){
-        if(allWorkers1[i]->getRank()>=minimalRank){
-            finalWorkers1[t]=allWorkers1[i];
+    int k=0;
+    int s=0;
+    //printf("Company2Exists->workers->getNodesCount() - %d\n",Company2Exists->workers->getNodesCount());
+    if(j==Company1Exists->workers->getNodesCount()){
+        for(k=0;k<Company1Exists->workers->getNodesCount();k++){
+            finalWorkers1[t]=allWorkers1[k];
+            //printf("allWorkers1[t1] - %d\n",allWorkers1[k]->getId());
+            t++;
+        }
+    }else{
+        for(k=0;k<=j;k++){
+            //printf("allWorkers1[t2] - %d\n",allWorkers1[k]->getId());
+            finalWorkers1[t]=allWorkers1[k];
             t++;
         }
     }
     t=0;
-    for(i=0;i<Company2Exists->workers->getNodesCount();i++){
-        if(allWorkers2[i]->getRank()>=minimalRank){
-            finalWorkers2[t]=allWorkers2[i];
+    if(i==Company2Exists->workers->getNodesCount()){
+        for(s=0;s<Company2Exists->workers->getNodesCount();s++){
+            finalWorkers2[t]=allWorkers2[s];
+            //printf("allWorkers2[t1] - %d\n",allWorkers2[s]->getId());
+            t++;
+        }
+    }else{
+        for(s=0;s<=s;s++){
+            //printf("allWorkers2[t2] - %d\n",allWorkers2[i]->getId());
+            finalWorkers2[t]=allWorkers2[s];
             t++;
         }
     }
-    printf("OK6\n");
+
+    //printf("OK6\n");
+    //printf("numFinalWorkers1 - %d\n",numFinalWorkers1);
+    //printf("numFinalWorkers2 - %d\n",numFinalWorkers2);
     int size = numFinalWorkers1+numFinalWorkers2;
     Worker** mergedWorkers=(Worker**) malloc(sizeof(Worker) * size);
     merge(finalWorkers1,numFinalWorkers1,finalWorkers2,numFinalWorkers2,mergedWorkers);
-    printf("OK7\n");
+    for(i=0;i<numFinalWorkers2+numFinalWorkers1;i++){
+        //printf("mergedWorkers[t2] - %d\n",mergedWorkers[i]->getId());
+    }
+    //printf("OK7\n");
 
     Company* mergedCompany;
     try{
@@ -168,21 +198,26 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     } catch (std::bad_alloc&) {
         return ALLOCATION_ERROR;
     }
-    printf("OK8\n");
+    //printf("OK8\n");
 
     WorkersTree_t* mergeWorkerTree = new WorkersTree_t(size);
     int depth = (int)log2(size);
     int deleteNum=(int)(pow(2,1+depth)-1-size);
-    printf("OK9\n");
-    mergeWorkerTree->deleteFullTreeOrder(&deleteNum);
-    printf("OK10\n");
-    mergeWorkerTree->InOrderCopyArray(mergedWorkers,&size,0);
-    printf("OK11\n");
+    //printf("depth is - %d\n",depth);
+    //printf("size is - %d\n",size);
+    //printf("deleteNum is - %d\n",deleteNum);
+    //printf("OK9\n");
+    mergeWorkerTree->deleteFullTreeOrder(deleteNum);
+    //printf("OK10 - %d\n",size);
+    mergeWorkerTree->InOrderCopyArray(mergedWorkers,size,0);
+    //printf("OK11\n");
     mergedCompany->workers=mergeWorkerTree ;
     mergedCompany->setBestWorker(mergedBestWorker);
+    //printf("nodes - %d\n",mergedCompany->workers->FindMax()->getId());
     printTree(mergedCompany->workers);
-
-
+    this->Companies->Delete(companyID2);
+    this->Companies->Delete(companyID1);
+    this->Companies->Insert(mergedCompany->getId(),mergedCompany);
 return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){
@@ -228,6 +263,10 @@ StatusType HighTech::getBestWorker(int companyID, int *workerID){
         Company* CompanyExists = this->Companies->Find(companyID);
         if( CompanyExists==NULL){
             return FAILURE;
+        }
+        if(CompanyExists->getBestWorker()==NULL){
+            *workerID=-1;
+            return SUCCESS;
         }
         *workerID=CompanyExists->getBestWorker()->getId();
     }
@@ -286,7 +325,7 @@ void HighTech::deleteWorkerTree(AllWorkersTreeRank_t* AllWorkersTree){
     }
     AllWorkersTreeIterator AllWorkersIterator = AllWorkersTree->GetIterator();
     while(*AllWorkersIterator!=NULL){
-        printf("'worker id - %d\n",(*AllWorkersIterator)->getId());
+        //printf("worker id - %d\n",(*AllWorkersIterator)->getId());
         delete(*AllWorkersIterator);
         AllWorkersIterator++;
     }
@@ -305,8 +344,9 @@ void HighTech::deleteCompanyTree(CompaniesTree_t* Companies){
 }
 void HighTech::printTree(AllWorkersTreeRank_t* workerTree){
     AllWorkersTreeIterator AllWorkersIterator = workerTree->GetIterator();
+    //printf("OK15\n");
     while (*AllWorkersIterator != NULL){
-        printf("'worker id - %d\n",(*AllWorkersIterator)->getId());
+        //printf("worker id - %d\n",(*AllWorkersIterator)->getId());
         AllWorkersIterator++;
     }
 }
@@ -318,7 +358,7 @@ void HighTech::merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]) {
 
     for (i = 0; i < m + n;) {
         if (j < m && k < n) {
-            if (a[j]->getRank() < b[k]->getRank()) {
+            if (a[j]->getRank() > b[k]->getRank()) {
                 sorted[i] = a[j];
                 j++;
             } else {
