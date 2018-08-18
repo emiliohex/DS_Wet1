@@ -1,8 +1,9 @@
+
 #include "HighTech.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-    
+
 HighTech::HighTech(){
     this->Companies=new CompaniesTree_t();
     this->Workers=new AllWorkersTreeId_t();
@@ -20,8 +21,8 @@ StatusType HighTech::addWorker(int workerID, int rank){
     try{
         newWorker=new Worker(workerID,rank);
     } catch (std::bad_alloc&) {
-		return ALLOCATION_ERROR;
-	}
+        return ALLOCATION_ERROR;
+    }
     if(this->Workers->add(workerID, newWorker) == false){
         return ALLOCATION_ERROR;
     }
@@ -46,8 +47,8 @@ StatusType HighTech::addCompany(int companyID){
     try{
         newCompany=new Company(companyID);
     } catch (std::bad_alloc&) {
-		return ALLOCATION_ERROR;
-	}
+        return ALLOCATION_ERROR;
+    }
     if(this->Companies->add(companyID,newCompany)==false){
         return ALLOCATION_ERROR;
     }
@@ -86,17 +87,19 @@ StatusType HighTech::removeWorker(int workerID){
     if( WorkerExists==NULL){
         return FAILURE;
     }
+    //printf("OK1 \n");
     rankAndId* newRankAndId = WorkerExists->getRankAndId();
     Company* newCompany = WorkerExists->getCompany();
     WorkerExists->setCompany(NULL);
-    printTree(newCompany->workers);
+    //printf("OK2 \n");
+    //printTree(newCompany->workers);
     if(newCompany!=NULL){
         newCompany->workers->remove(newRankAndId);
         //printf("node company - %d\n",newCompany->workers->getSize());
         newCompany->workers->remove(newRankAndId);
         //printTree(newCompany->workers);
     }
-
+    //printf("OK3 \n");
     this->Workers->remove(workerID);
     this->AllWorkersTree->remove(newRankAndId);
     return SUCCESS;
@@ -174,14 +177,14 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     int s=0;
     //printf("Company1Exists->workers->getSize() - %d\n",Company1Exists->workers->getSize());
     for(k=j;k<Company1Exists->workers->getSize();k++){
-            finalWorkers1[t]=allWorkers1[k];
-            //printf("allWorkers1[t1] - %d\n",allWorkers1[k]->getId());
-            t++;
+        finalWorkers1[t]=allWorkers1[k];
+        //printf("allWorkers1[t1] - %d\n",allWorkers1[k]->getId());
+        t++;
     }
     for(k=0;k<j;k++){
-            allWorkers1[k]->setCompany(NULL);
-            //printf("remove[t2] - %d\n",allWorkers1[k]->getId());
-        }
+        allWorkers1[k]->setCompany(NULL);
+        //printf("remove[t2] - %d\n",allWorkers1[k]->getId());
+    }
     t=0;
     for(s=i;s<Company2Exists->workers->getSize();s++){
         finalWorkers2[t]=allWorkers2[s];
@@ -189,8 +192,8 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
         t++;
     }
     for(s=0;s<i;s++){
-            allWorkers2[s]->setCompany(NULL);
-        }
+        allWorkers2[s]->setCompany(NULL);
+    }
 
 
     //printf("OK6\n");
@@ -204,12 +207,12 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     }
     //printf("OK7\n");
     this->Companies->find(newCompanyId)->workers->destroyTree();
-  /*  Company* mergedCompany;
-    try{
-        mergedCompany=new Company(newCompanyId);
-    } catch (std::bad_alloc&) {
-        return ALLOCATION_ERROR;
-    }*/
+    /*  Company* mergedCompany;
+      try{
+          mergedCompany=new Company(newCompanyId);
+      } catch (std::bad_alloc&) {
+          return ALLOCATION_ERROR;
+      }*/
     //printf("OK8\n");
 
     WorkersTree_t* mergeWorkerTree = mergeWorkerTree->createTree(size);
@@ -236,12 +239,12 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     //printTree(mergedCompany->workers);
     if(newCompanyId==companyID1){
         this->Companies->remove(companyID2);
-        }
-        else {
+    }
+    else {
         this->Companies->remove(companyID1);
     }
     //this->Companies->add(mergedCompany->getId(),mergedCompany);
-return SUCCESS;
+    return SUCCESS;
 }
 StatusType HighTech::changeRank(int workerID, int newRank){
     if(workerID <= 0 || newRank <= 0 ){
@@ -252,30 +255,23 @@ StatusType HighTech::changeRank(int workerID, int newRank){
     if( WorkerExists==NULL){
         return FAILURE;
     }
-    rankAndId* newRankAndId = WorkerExists->getRankAndId();
-    Company* workerCompany= WorkerExists->getCompany();
-    if(workerCompany!=NULL){
-        workerCompany->workers->remove(newRankAndId);
+    //printf("OK11\n");
+    int newWorkerId=WorkerExists->getId();
+    int newWorkerRank = newRank;
+    Company* newCompany=WorkerExists->getCompany();
+    //printf("OK12\n");
+    StatusType status =removeWorker(workerID);
+    if(status!=SUCCESS){
+        return status;
     }
-    this->AllWorkersTree->remove(newRankAndId);
-    this->Workers->remove(workerID);
-
-    WorkerExists->changeRank(newRank);
-
-    newRankAndId = WorkerExists->getRankAndId();
-    if(workerCompany!=NULL){
-        if(workerCompany->workers->add(newRankAndId,WorkerExists)==false){
-            return ALLOCATION_ERROR;
-        }
+    //printf("OK13\n");
+    status=addWorker(newWorkerId,newWorkerRank);
+    if(status!=SUCCESS){
+        return status;
     }
-    printTree(this->AllWorkersTree);
-    if(this->AllWorkersTree->add(newRankAndId,WorkerExists)==false){
-        return ALLOCATION_ERROR;
-    }
-    printTree(this->AllWorkersTree);
-    if(this->Workers->add(workerID,WorkerExists)==false){
-        return ALLOCATION_ERROR;
-    }
+    //printf("OK14\n");
+    Worker* newWorkerExists = this->Workers->find(newWorkerId);
+    newWorkerExists->setCompany(newCompany);
     return SUCCESS;
 }
 StatusType HighTech::getBestWorker(int companyID, int *workerID){
@@ -379,7 +375,7 @@ void HighTech::deleteCompanyTree(CompaniesTree_t* Companies){
 }
 void HighTech::printTree(AllWorkersTreeRank_t* workerTree){
     for (AllWorkersTreeIterator it = workerTree->begin(); it != workerTree->end(); ++it) {
-        printf("worker id - %d , worker rank - %d\n",(*it)->getId(),(*it)->getRank());
+        //printf("worker id - %d , worker rank - %d\n",(*it)->getId(),(*it)->getRank());
     }
 }
 
@@ -413,4 +409,3 @@ void HighTech::merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]) {
         }
     }
 }
-

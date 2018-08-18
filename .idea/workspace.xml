@@ -13,15 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="acf620bc-6b3a-4dcb-b68f-4663f7d9bb69" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AvlTree.h" beforeDir="false" afterPath="$PROJECT_DIR$/AvlTree.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HighTech.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/HighTech.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HighTech.h" beforeDir="false" afterPath="$PROJECT_DIR$/HighTech.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/HighTech.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/HighTech.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/library1.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/library1.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Wet1.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Wet1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Wet1.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compare.h" beforeDir="false" afterPath="$PROJECT_DIR$/compare.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,25 +55,25 @@
         <counts>
           <entry key="cpp" value="5" />
           <entry key="exception" value="1" />
-          <entry key="h" value="15" />
+          <entry key="h" value="16" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CMakeLists.txt" value="1" />
-          <entry key="ObjectiveC" value="21" />
+          <entry key="ObjectiveC" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="1288" />
-          <entry key="h" value="804" />
+          <entry key="cpp" value="1699" />
+          <entry key="h" value="815" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="2092" />
+          <entry key="ObjectiveC" value="2514" />
         </counts>
       </usages-collector>
     </session>
@@ -121,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HighTech.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+            <state relative-caret-position="136">
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
               <folding>
                 <element signature="e#41#62#0" expanded="true" />
               </folding>
@@ -133,7 +129,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/library1.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="142">
+              <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -149,11 +146,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AvlTree.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="218" column="38" selection-start-line="218" selection-start-column="38" selection-end-line="218" selection-end-column="38" />
+            <state relative-caret-position="162">
+              <caret line="205" column="23" lean-forward="true" selection-start-line="205" selection-start-column="23" selection-end-line="205" selection-end-column="23" />
               <folding>
                 <element signature="e#41#60#0" expanded="true" />
-                <element signature="e#29#89#0" expanded="true" />
+                <element signature="e#110#170#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -174,8 +171,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HighTech.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="270" column="36" selection-start-line="270" selection-start-column="36" selection-end-line="270" selection-end-column="36" />
+            <state relative-caret-position="-147">
+              <caret line="377" column="10" selection-start-line="377" selection-start-column="10" selection-end-line="377" selection-end-column="10" />
+              <folding>
+                <element signature="e#335#356#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -190,10 +190,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Worker.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compare.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="98" selection-start-line="17" selection-start-column="98" selection-end-line="17" selection-end-column="98" />
+            <state relative-caret-position="170">
+              <caret line="10" column="5" lean-forward="true" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -218,6 +227,7 @@
       <find>houseCo</find>
       <find>revers</find>
       <find>merge</find>
+      <find>find</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -229,9 +239,10 @@
         <option value="$PROJECT_DIR$/Worker.h" />
         <option value="$PROJECT_DIR$/Company.h" />
         <option value="$PROJECT_DIR$/rankAndId.h" />
-        <option value="$PROJECT_DIR$/AvlTree.h" />
-        <option value="$PROJECT_DIR$/HighTech.h" />
         <option value="$PROJECT_DIR$/compare.h" />
+        <option value="$PROJECT_DIR$/HighTech.h" />
+        <option value="$PROJECT_DIR$/AvlTree.h" />
+        <option value="$PROJECT_DIR$/library1.cpp" />
         <option value="$PROJECT_DIR$/HighTech.cpp" />
       </list>
     </option>
@@ -243,9 +254,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="891" />
-    <option name="width" value="1038" />
-    <option name="height" value="1038" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -318,12 +330,12 @@
       <workItem from="1534345533750" duration="996000" />
       <workItem from="1534350190310" duration="3865000" />
       <workItem from="1534491353363" duration="6847000" />
-      <workItem from="1534520465334" duration="21951000" />
+      <workItem from="1534520465334" duration="27843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47211000" />
+    <option name="totallyTimeSpent" value="53103000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -336,14 +348,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987775" visible="true" weight="0.08926175" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987775" visible="true" weight="0.020134227" />
       <window_info id="Structure" order="1" sideWeight="0.5012225" side_tool="true" weight="0.1633888" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38723403" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.7049645" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -351,9 +362,9 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3295082" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="CMake" order="9" weight="0.32907802" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.18439716" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.38439715" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32765958" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32624114" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -412,13 +423,6 @@
     <entry file="file://$PROJECT_DIR$/main1.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Worker.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/MinGW/lib/gcc/mingw32/6.3.0/include/c++/exception">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -436,22 +440,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library1.cpp">
+    <entry file="file://$PROJECT_DIR$/compare.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="10" column="5" lean-forward="true" selection-end-line="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HighTech.h">
+    <entry file="file://$PROJECT_DIR$/Worker.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding>
-            <element signature="e#41#62#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -462,28 +461,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compare.h">
+    <entry file="file://$PROJECT_DIR$/HighTech.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="98" selection-start-line="17" selection-start-column="98" selection-end-line="17" selection-end-column="98" />
+        <state relative-caret-position="136">
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding>
+            <element signature="e#41#62#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AvlTree.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="218" column="38" selection-start-line="218" selection-start-column="38" selection-end-line="218" selection-end-column="38" />
+        <state relative-caret-position="162">
+          <caret line="205" column="23" lean-forward="true" selection-start-line="205" selection-start-column="23" selection-end-line="205" selection-end-column="23" />
           <folding>
             <element signature="e#41#60#0" expanded="true" />
-            <element signature="e#29#89#0" expanded="true" />
+            <element signature="e#110#170#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library1.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HighTech.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="270" column="36" selection-start-line="270" selection-start-column="36" selection-end-line="270" selection-end-column="36" />
+        <state relative-caret-position="-147">
+          <caret line="377" column="10" selection-start-line="377" selection-start-column="10" selection-end-line="377" selection-end-column="10" />
+          <folding>
+            <element signature="e#335#356#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
