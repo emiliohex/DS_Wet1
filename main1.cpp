@@ -1,407 +1,203 @@
-//
-// Created by Tomer Golany on 10/08/2018.
-//
-/***************************************************************************/
-/*                                                                         */
-/* 234218 Data DSs 1, Summer 2018                                     */
-/* Homework : Wet 1                                                        */
-/*                                                                         */
-/***************************************************************************/
-
-/***************************************************************************/
-/*                                                                         */
-/* File Name : main1.cpp                                                   */
-/*                                                                         */
-/* Holds the "int main()" function and the parser of the shell's           */
-/* command line.                                                           */
-/***************************************************************************/
-
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "library1.h"
 #include <iostream>
-using namespace std;
+#include "library1.h"
+#include <cassert>
+#include <stdlib.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-/* The command's strings */
-typedef enum {
-	NONE_CMD = -2,
-	COMMENT_CMD = -1,
-	INIT_CMD = 0,
-	ADDWORKER_CMD = 1,
-	ADDCOMPANY_CMD = 2,
-    ADDWORKERTOCOMPANY_CMD = 3,
-	REMOVEWORKER_CMD = 4,
-	MERGECOMPANIES_CMD = 5,
-	CHANGERANK_CMD = 6,
-	GETBESTWORKER_CMD = 7,
-    GETCOMPANYWORKERSBYRANK_CMD = 8,
-	QUIT_CMD = 9
-} commandType;
 
-static const int numActions = 10;
-static const char *commandStr[] = {
-		"init",
-		"addWorkers",
-		"addCompany",
-		"addWorkerToCompany",
-        "removeWorker",
-        "mergeCompanies",
-        "changeRank",
-		"getBestWorker",
-		"getCompanyWorkersByRank",
-		"Quit" };
-
-static const char* ReturnValToStr(int val) {
-	switch (val) {
-	case SUCCESS:
-		return "SUCCESS";
-	case ALLOCATION_ERROR:
-		return "ALLOCATION_ERROR";
-	case FAILURE:
-		return "FAILURE";
-	case INVALID_INPUT:
-		return "INVALID_INPUT";
-	default:
-		return "";
-	}
+void testAddCompany1(void* DS){
+    assert(addCompany(DS,1)==SUCCESS);
+    assert(addCompany(DS,2)==SUCCESS);
+    assert(addCompany(DS,3)==SUCCESS);
+    assert(addCompany(DS,4)==SUCCESS);
+    assert(addCompany(DS,5)==SUCCESS);
+    assert(addCompany(NULL,1)==INVALID_INPUT);
+    assert(addCompany(DS,-1)==INVALID_INPUT);
+    assert(addCompany(DS,0)==INVALID_INPUT);
 }
-
-/* we assume maximum string size is not longer than 256  */
-#define MAX_STRING_INPUT_SIZE (255)
-#define MAX_BUFFER_SIZE       (255)
-
-#define StrCmp(Src1,Src2) ( strncmp((Src1),(Src2),strlen(Src1)) == 0 )
-
-typedef enum {
-	error_free, error
-} errorType;
-static errorType parser(const char* const command);
-
-#define ValidateRead(read_parameters,required_parameters,ErrorString,ErrorParams) \
-if ( (read_parameters)!=(required_parameters) ) { printf(ErrorString, ErrorParams); return error; }
-
-static bool isInit = false;
-
-/***************************************************************************/
-/* main                                                                    */
-/***************************************************************************/
-
-int main(int argc, const char**argv) {
-	char buffer[MAX_STRING_INPUT_SIZE];
-
-	// Reading commands
-	while (fgets(buffer, MAX_STRING_INPUT_SIZE, stdin) != NULL) {
-		fflush(stdout);
-		if (parser(buffer) == error)
-			break;
-	};
-	return 0;
-}
-
-/***************************************************************************/
-/* Command Checker                                                         */
-/***************************************************************************/
-
-static commandType CheckCommand(const char* const command,
-		const char** const command_arg) {
-	if (command == NULL || strlen(command) == 0 || StrCmp("\n", command))
-		return (NONE_CMD);
-	if (StrCmp("#", command)) {
-		if (strlen(command) > 1)
-			printf("%s", command);
-		return (COMMENT_CMD);
-	};
-	for (int index = 0; index < numActions; index++) {
-		if (StrCmp(commandStr[index], command)) {
-			*command_arg = command + strlen(commandStr[index]) + 1;
-			return ((commandType) index);
-		};
-	};
-	return (NONE_CMD);
-}
-
-/***************************************************************************/
-/* Commands Functions                                                      */
-/***************************************************************************/
-
-static errorType OnInit(void** DS, const char* const command);
-static errorType OnAddWorker(void* DS, const char* const command);
-static errorType OnAddCompany(void* DS, const char* const command);
-static errorType OnAddWorkerToCompany(void* DS, const char* const command);
-static errorType OnRemoveWorker(void* DS, const char* const command);
-static errorType OnMergeCompanies(void* DS, const char* const command);
-static errorType OnChangeRank(void* DS, const char* const command);
-static errorType OnGetBestWorker(void* DS, const char* const command);
-static errorType OnGetCompanyWorkersByRank (void* DS, const char* const command);
-static errorType OnQuit(void** DS, const char* const command);
-
-/***************************************************************************/
-/* Parser                                                                  */
-/***************************************************************************/
-
-static errorType parser(const char* const command) {
-	static void *DS = NULL; /* The general data structure */
-	const char* command_args = NULL;
-	errorType rtn_val = error;
-
-	commandType command_val = CheckCommand(command, &command_args);
-
-	switch (command_val) {
-
-	case (INIT_CMD):
-		rtn_val = OnInit(&DS, command_args);
-		break;
-	case (ADDWORKER_CMD):
-		rtn_val = OnAddWorker(DS, command_args);
-		break;
-	case (ADDCOMPANY_CMD):
-		rtn_val = OnAddCompany(DS, command_args);
-		break;
-	case (ADDWORKERTOCOMPANY_CMD):
-		rtn_val = OnAddWorkerToCompany(DS, command_args);
-		break;
-	case (REMOVEWORKER_CMD):
-		rtn_val = OnRemoveWorker(DS, command_args);
-		break;
-	case (MERGECOMPANIES_CMD):
-		rtn_val = OnMergeCompanies(DS, command_args);
-		break;
-	case (CHANGERANK_CMD):
-		rtn_val = OnChangeRank(DS, command_args);
-		break;
-	case (GETBESTWORKER_CMD):
-		rtn_val = OnGetBestWorker(DS, command_args);
-		break;
-    case (GETCOMPANYWORKERSBYRANK_CMD):
-        rtn_val = OnGetCompanyWorkersByRank(DS, command_args);
-        break;
-	case (QUIT_CMD):
-		rtn_val = OnQuit(&DS, command_args);
-		break;
-
-	case (COMMENT_CMD):
-		rtn_val = error_free;
-		break;
-	case (NONE_CMD):
-		rtn_val = error;
-		break;
-	default:
-		assert(false);
-		break;
-	};
-	return (rtn_val);
-}
-
-/***************************************************************************/
-/* OnInit                                                                  */
-/***************************************************************************/
-static errorType OnInit(void** DS, const char* const command) {
-	if (isInit) {
-		printf("init was already called.\n");
-		return (error_free);
-	};
-	isInit = true;
-
-	*DS = init();
-	if (*DS == NULL) {
-		printf("init failed.\n");
-		return error;
-	};
-	printf("init done.\n");
-
-	return error_free;
-}
-
-
-/***************************************************************************/
-/* OnAddWorker                                                             */
-/***************************************************************************/
-static errorType OnAddWorker(void* DS, const char* const command) {
-	int workerID;
-	int rank;
-	ValidateRead(
-			sscanf(command, "%d %d", &workerID, &rank),
-			2, "%s failed.\n", commandStr[ADDWORKER_CMD]);
-	StatusType res = addWorker(DS, workerID, rank);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[ADDWORKER_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	printf("%s: %s\n", commandStr[ADDWORKER_CMD], ReturnValToStr(res));
-	return error_free;
-}
-
-/***************************************************************************/
-/* OnAddCompany                                                               */
-/***************************************************************************/
-static errorType OnAddCompany(void* DS, const char* const command) {
-	int companyID;
-	ValidateRead(sscanf(command, "%d", &companyID), 1, "%s failed.\n", commandStr[ADDCOMPANY_CMD]);
-	StatusType res = addCompany(DS, companyID);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[ADDCOMPANY_CMD], ReturnValToStr(res));
-		return error_free;
-	} else {
-		printf("%s: %s\n", commandStr[ADDCOMPANY_CMD], ReturnValToStr(res));
-	}
-
-	return error_free;
-}
-
-
-/***************************************************************************/
-/* OnAddWorkerToCompany                                                              */
-/***************************************************************************/
-static errorType OnAddWorkerToCompany(void* DS, const char* const command) {
-	int workerID, companyID;
-	ValidateRead(sscanf(command, "%d %d", &workerID, &companyID), 2,
-			"%s failed.\n", commandStr[ADDWORKERTOCOMPANY_CMD]);
-	StatusType res = addworkerToCompany(DS, workerID, companyID);
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[ADDWORKERTOCOMPANY_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	printf("%s: %s\n", commandStr[ADDWORKERTOCOMPANY_CMD], ReturnValToStr(res));
-	return error_free;
-}
-
-/***************************************************************************/
-/* OnRemoveWorker                                                     */
-/***************************************************************************/
-static errorType OnRemoveWorker(void* DS, const char* const command) {
-	int workerID;
-	ValidateRead(sscanf(command, "%d", &workerID), 1,
-			"%s failed.\n", commandStr[REMOVEWORKER_CMD]);
-	StatusType res = removeWorker(DS, workerID);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[REMOVEWORKER_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	printf("%s: %s\n", commandStr[REMOVEWORKER_CMD], ReturnValToStr(res));
-	return error_free;
-}
-
-/***************************************************************************/
-/* OnMergeCompanies                                                            */
-/***************************************************************************/
-static errorType OnMergeCompanies(void* DS, const char* const command) {
-	int company1;
-	int company2;
-    int minRank;
-	ValidateRead(sscanf(command, "%d %d %d", &company1, &company2, &minRank), 3,
-			"%s failed.\n", commandStr[MERGECOMPANIES_CMD]);
-	StatusType res = mergeCompanies(DS, company1, company2, minRank);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[MERGECOMPANIES_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	printf("%s: %s\n", commandStr[MERGECOMPANIES_CMD], ReturnValToStr(res));
-	return error_free;
-}
-
-
-/***************************************************************************/
-/* OnChangeRank                                                            */
-/***************************************************************************/
-static errorType OnChangeRank(void* DS, const char* const command) {
-    int workerID;
-    int newRank;
-    ValidateRead(sscanf(command, "%d %d", &workerID, &newRank), 2,
-                 "%s failed.\n", commandStr[CHANGERANK_CMD]);
-    StatusType res = changeRank(DS, workerID, newRank);
-
-    if (res != SUCCESS) {
-        printf("%s: %s\n", commandStr[CHANGERANK_CMD], ReturnValToStr(res));
-        return error_free;
+void testAddCompany2(void* DS){
+    for(int i=1;i<6;i++){
+        assert(addCompany(DS,i)==FAILURE);
     }
+    for(int i=100;i<110;i++){
+        assert(addCompany(DS,i)==SUCCESS);
+    }
+    std::cout<<"Passed add company test..."<<std::endl;
+}
+void testAddWorker(void* DS){
+    assert(addWorker(NULL, 1, 1)==INVALID_INPUT);
+    assert(addWorker(DS, -1, 1)==INVALID_INPUT);
+    assert(addWorker(DS, 1, -1)==INVALID_INPUT);
+    assert(addWorker(DS, 1, 0)==INVALID_INPUT);
+    assert(addWorker(DS, 0, 1)==INVALID_INPUT);
+    assert(addWorker(DS, 1, 1)==SUCCESS);
+    for (int i = 0; i < 10; ++i) {
+        assert(addWorker(DS,60+i,55+i)==SUCCESS);
+    }
+    for (int i = 0; i < 10; ++i) {
+        assert(addWorker(DS,100+i,100+i)==SUCCESS);
+    }
+    for (int i = 0; i < 5; ++i) {
+        assert(addWorker(DS,20+i,20+i)==SUCCESS);
+    }
+    //check if the workers are in the system
+    for (int i = 0; i < 10; ++i) {
+        assert(addWorker(DS,60+i,55+i)==FAILURE);
+        assert(addWorker(DS,100+i,100+i)==FAILURE);
+        if(i<5)
+            assert(addWorker(DS,20+i,20+i)==FAILURE);
+    }
+    std::cout<<"Passed add worker test..."<<std::endl;
 
-    printf("%s: %s\n", commandStr[CHANGERANK_CMD], ReturnValToStr(res));
-    return error_free;
+}
+void testAddWorkerToCompany(void *DS){
+
+    assert(addworkerToCompany(NULL, 1, 1)==INVALID_INPUT);
+    assert(addworkerToCompany(DS, -1, 1)==INVALID_INPUT);
+    assert(addworkerToCompany(DS, 1, -1)==INVALID_INPUT);
+    assert(addworkerToCompany(DS, 1, 0)==INVALID_INPUT);
+    assert(addworkerToCompany(DS, 0, 1)==INVALID_INPUT);
+    assert(addworkerToCompany(DS, 1, 6)==FAILURE);
+    // company 6 dose not exist
+    assert(addworkerToCompany(DS, 6, 1)==FAILURE);
+    // worker 6 dose not exist
+    for (int i = 0; i < 10; ++i) {
+        assert(addworkerToCompany(DS,60+i,1)==SUCCESS);
+        //  Worker(i) with id 60+i rank 55+i company 1
+    }
+    for (int i = 0; i < 10; ++i) {
+        assert(addworkerToCompany(DS,100+i,2)==SUCCESS);
+        //  worker(i) with id 100+i rank 100+i company 2
+    }
+    for (int i = 0; i < 5; ++i) {
+        assert(addworkerToCompany(DS,20+i,3)==SUCCESS);
+        //  worker(i) with id 20+i score 20+i company 3
+    }
+    for (int i =100; i < 110; ++i) {
+        assert(addworkerToCompany(DS,i,i)==SUCCESS);
+        //the compnies 100-109 get one worker each that have id as the company,worker(i) changed
+        //company from 2 to i
+        assert(addworkerToCompany(DS,i,i)==SUCCESS);
+        //worker(i) already belong to company i
+    }
+    std::cout<<"Passed add worker to company test..."<<std::endl;
+}
+void testRemoveWorker(void *DS){
+    assert(removeWorker(NULL, 1)==INVALID_INPUT);
+    assert(removeWorker(DS, 0)==INVALID_INPUT);
+    assert(removeWorker(DS, -4)==INVALID_INPUT);
+    assert(removeWorker(DS, 6)==FAILURE);
+    for (int i = 0; i < 5; ++i) {
+        assert(removeWorker(DS,60+i)==SUCCESS);
+    }
+    std::cout<<"Passed remove worker test..."<<std::endl;
+}
+void testChangeRank(void *DS){
+    assert(changeRank(NULL,1,5)==INVALID_INPUT);
+    assert(changeRank(DS,1,0)==INVALID_INPUT);
+    assert(changeRank(DS,1,-1)==INVALID_INPUT);
+    assert(changeRank(DS,-1,5)==INVALID_INPUT);
+    assert(changeRank(DS,-1,5)==INVALID_INPUT);
+    assert(changeRank(DS,0,5)==INVALID_INPUT);
+    assert(changeRank(DS,60,5)==FAILURE);
+    assert(changeRank(DS,1,5)==SUCCESS);
+    assert(changeRank(DS,1,200)==SUCCESS);
+    assert(changeRank(DS,20,24)==SUCCESS);
+    std::cout<<"Passed change rank test..."<<std::endl;
+}
+void testMergeCompanies(void *DS){
+    assert(mergeCompanies(NULL,1,2,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,0,2,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,-1,2,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,2,0,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,0,-1,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,1,2,0)==INVALID_INPUT);
+    assert(mergeCompanies(DS,1,2,-5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,2,2,5)==INVALID_INPUT);
+    assert(mergeCompanies(DS,10,2,5)==FAILURE);
+    assert(mergeCompanies(DS,2,10,5)==FAILURE);
+    //company 10 dose not exist
+    assert(mergeCompanies(DS,1,2,10)==SUCCESS);
+    //will merge into company 1
+    assert(mergeCompanies(DS,1,3,15)==SUCCESS);
+    //will merge into company 1
+    assert(addCompany(DS,2)==SUCCESS);
+    assert(addCompany(DS,3)==SUCCESS);
+    for (int i =100; i < 110; ++i) {
+        assert(addworkerToCompany(DS,i,2)==SUCCESS);
+    }
+    assert(mergeCompanies(DS,1,2,10)==SUCCESS);
+    //will merge into company 1 again
+    assert(addCompany(DS,2)==SUCCESS);
+    std::cout<<"Passed merge companies test..."<<std::endl;
+}
+void testGetBestWorker(void *DS){
+    int best=-1;
+    assert(getBestWorker(NULL,2,&best)==INVALID_INPUT);
+    assert(getBestWorker(DS,0,&best)==INVALID_INPUT);
+    assert(getBestWorker(DS,-2,&best)==SUCCESS);
+    assert(getBestWorker(DS,0,NULL)==INVALID_INPUT);
+
+    assert(best==1);
+    assert(getBestWorker(DS,1,&best)==SUCCESS);
+    assert(best==109);
+    assert(getBestWorker(DS,5,&best)==SUCCESS);
+    assert(best==-1);
+    assert(getBestWorker(DS,6,&best)==FAILURE);
+    assert(best==-1);
+    std::cout<<"Passed best worker test..."<<std::endl;
+}
+void testGetCompanyWorkersByRank(void* DS){
+    int numOfWorkers=-1;
+    int *workers=&numOfWorkers;
+    assert(getCompanyWorkersByRank(NULL,2,&workers,&numOfWorkers)==INVALID_INPUT);
+    assert(getCompanyWorkersByRank(DS,2,NULL,&numOfWorkers)==INVALID_INPUT);
+    assert(getCompanyWorkersByRank(DS,2,&workers,NULL)==INVALID_INPUT);
+    assert(getCompanyWorkersByRank(DS,0,&workers,&numOfWorkers)==INVALID_INPUT);
+    assert(getCompanyWorkersByRank(DS,-2,&workers,&numOfWorkers)==SUCCESS);
+    assert(numOfWorkers==21);
+    int arr[21]={1,109,108,107,106,105,104,103,102,101,100,69,68,67,66,65,20,24,23,22,21};
+    for(int i=0;i<21;i++){
+        assert(workers[i]==arr[i]);
+    }
+    free(workers);
+    assert(getCompanyWorkersByRank(DS,2,&workers,&numOfWorkers)==SUCCESS);
+    assert(numOfWorkers==0);
+    free(workers);
+    std::cout<<"Passed get company workers by rank test..."<<std::endl;
 }
 
 
-/***************************************************************************/
-/* OnGetBestWorker                                                         */
-/***************************************************************************/
-static errorType OnGetBestWorker(void* DS, const char* const command) {
-	int companyID;
-	ValidateRead(sscanf(command, "%d", &companyID), 1, "%s failed.\n", commandStr[GETBESTWORKER_CMD]);
-	int workerID;
-	StatusType res = getBestWorker(DS, companyID, &workerID);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[GETBESTWORKER_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	cout << "Most successful worker is: " << workerID << endl;
-	return error_free;
+void testQuit(void* DS){
+    void** tmp=NULL;
+    void* temp=NULL;
+    quit(tmp);
+    printf("OK1\n");
+    quit(&temp);
+    printf("OK2\n");
+    quit(&DS);
+    printf("OK3\n");
+    assert(DS==NULL);
+    std::cout<<"Passed Quit test..."<<std::endl;
 }
 
 
-/***************************************************************************/
-/* PrintAll                                                                */
-/***************************************************************************/
-void PrintAll(int *workerIDs, int numOfWorkers) {
-	if (numOfWorkers > 0) {
-		cout << "Rank\t||\tworker" << endl;
-	}
-
-	for (int i = 0; i < numOfWorkers; i++) {
-		cout << i + 1 << "\t\t||\t" << workerIDs[i] << endl;
-	}
-	cout << "and there are no more workers!" << endl;
-
-	free (workerIDs);
+int main(){
+    void* DS=init();
+    assert(DS);
+    testAddCompany1(DS);
+    //companies 1-5 were added
+    testAddCompany2(DS);
+    //compnies 100-109 were added
+    testAddWorker(DS);
+    testAddWorkerToCompany(DS);
+    //worker 1 was added with no company,60-69 to company 1,100-109 to company 100-109,20-24 to company 3
+    testRemoveWorker(DS);
+    //workers 60-64 were removed
+    testChangeRank(DS);
+    testMergeCompanies(DS);
+    testGetBestWorker(DS);
+    testGetCompanyWorkersByRank(DS);
+    testQuit(DS);
+    return 0;
 }
-
-static errorType OnGetCompanyWorkersByRank(void* DS, const char* const command) {
-	int companyID;
-	ValidateRead(sscanf(command, "%d", &companyID), 1,
-			"%s failed.\n", commandStr[GETCOMPANYWORKERSBYRANK_CMD]);
-	int* workerIDs;
-	int numOfWorkers;
-	StatusType res = getCompanyWorkersByRank(DS, companyID, &workerIDs, &numOfWorkers);
-
-	if (res != SUCCESS) {
-		printf("%s: %s\n", commandStr[GETCOMPANYWORKERSBYRANK_CMD], ReturnValToStr(res));
-		return error_free;
-	}
-
-	PrintAll(workerIDs, numOfWorkers);
-	return error_free;
-}
-
-/***************************************************************************/
-/* OnQuit                                                                  */
-/***************************************************************************/
-static errorType OnQuit(void** DS, const char* const command) {
-	quit(DS);
-	if (*DS != NULL) {
-		printf("Quit failed.\n");
-		return error;
-	};
-
-	isInit = false;
-	printf("Quit done.\n");
-
-	return error_free;
-}
-
-#ifdef __cplusplus
-}
-#endif

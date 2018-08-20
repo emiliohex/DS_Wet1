@@ -30,6 +30,7 @@ private:
 	void printTree(AllWorkersTreeRank_t* PostTree);
 	void merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]);
 	void reverse(int* start, int* end);
+    void reverse(Worker** start, Worker** end);
 
 
 public:

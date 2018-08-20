@@ -138,10 +138,12 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     allWorkers1=Company1Exists->workers->createDataArray();
     Worker** allWorkers2;
     allWorkers2 =Company2Exists->workers->createDataArray();
-    //printf("OK4\n");
+   // printf("OK4\n");
 
     int j=0;
+    //printf("Company1Exists->workers->getSize() - %d\n",Company1Exists->workers->getSize());
     for (int r=0;r<Company1Exists->workers->getSize();r++){
+        //printf("allWorkers1[%d]->getRank() - %d\n",r,allWorkers1[r]->getRank());
         if(allWorkers1[r]->getRank()<minimalRank){
             j++;
         }
@@ -154,8 +156,9 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     //printf("j - %d\n",j);
     int numFinalWorkers1 = Company1Exists->workers->getSize()-j;
 
+    //printf("Company1Exists->workers->getSize() - %d\n",Company1Exists->workers->getSize());
     int i=0;
-    for (int k=0;k<Company1Exists->workers->getSize();k++){
+    for (int k=0;k<Company2Exists->workers->getSize();k++){
         if(allWorkers2[k]->getRank()<minimalRank){
             i++;
         }
@@ -196,12 +199,13 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     }
 
 
-    //printf("OK6\n");
+   // printf("OK6\n");
     //printf("numFinalWorkers1 - %d\n",numFinalWorkers1);
     //printf("numFinalWorkers2 - %d\n",numFinalWorkers2);
     int size = numFinalWorkers1+numFinalWorkers2;
     Worker** mergedWorkers=(Worker**) malloc(sizeof(Worker) * size);
     merge(finalWorkers1,numFinalWorkers1,finalWorkers2,numFinalWorkers2,mergedWorkers);
+    //reverse(mergedWorkers,mergedWorkers+size-1);
     for(i=0;i<numFinalWorkers2+numFinalWorkers1;i++){
         //printf("mergedWorkers[t2] - %d\n",mergedWorkers[i]->getId());
     }
@@ -353,6 +357,19 @@ void HighTech::reverse(int* start, int* end){
     }
     return;
 }
+void HighTech::reverse(Worker** start, Worker** end){
+    Worker** first= start;
+    Worker** last= end;
+    Worker *temp;
+    while (first!=last &&!(first>last)) {
+        *temp = **first;
+        **first = **last;
+        **last = *temp;
+        first++;
+        last--;
+    }
+    return;
+}
 void HighTech::deleteWorkerTree(AllWorkersTreeRank_t* AllWorkersTree){
     if(AllWorkersTree==NULL){
         return;
@@ -386,7 +403,7 @@ void HighTech::merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]) {
 
     for (i = 0; i < m + n;) {
         if (j < m && k < n) {
-            if (a[j]->getRank() > b[k]->getRank()) {
+            if (a[j]->getRank() < b[k]->getRank()) {
                 sorted[i] = a[j];
                 j++;
             } else {

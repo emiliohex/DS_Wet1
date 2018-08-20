@@ -2,8 +2,13 @@
 #include "HighTech.h"
 
 void* init(){
-    HighTech * DS = new HighTech();
-	return (void*)DS;
+    try{
+        HighTech* DS = new HighTech();
+        return (void*)DS;
+    }
+    catch (std::bad_alloc& e) {
+        return NULL;
+    }
 }
 StatusType addWorker(void *DS, int workerID, int rank){
     if(DS==NULL) return INVALID_INPUT;
@@ -38,9 +43,12 @@ StatusType getCompanyWorkersByRank (void *DS, int companyID, int **workers, int 
     return ((HighTech*)DS)->getCompanyWorkersByRank (companyID,workers,numOfWorkers);
 }
 void quit(void** DS){
-    if(DS==NULL) return ;
-    ((HighTech*)*DS)->Quit();
-    delete((HighTech*)*DS);
-	(*DS) = NULL;
+    if(!DS || !(*DS)){
+        return;
+    }
+    HighTech** highTech = (HighTech**)DS;
+    //((HighTech*)*DS)->Quit();
+    delete *highTech;
+	*DS = NULL;
 }
 
