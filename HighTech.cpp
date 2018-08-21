@@ -332,13 +332,26 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     return SUCCESS;
 }
 
-void HighTech::Quit(){
+HighTech::~HighTech(){
     delete(this->bestWorker);
-    deleteWorkerTree(this->AllWorkersTree);
+    this->bestWorker=NULL;
+//    deleteWorkerTree(this->AllWorkersTree);
     delete(this->AllWorkersTree);
-    deleteCompanyTree(this->Companies);
+    this->AllWorkersTree=NULL;
+    delete(this->Workers);
+    this->Workers=NULL;
+//    deleteCompanyTree(this->Companies);
     delete(this->Companies);
+    this->Companies=NULL;
 }
+
+//void HighTech::Quit(){
+//    delete(this->bestWorker);
+//    deleteWorkerTree(this->AllWorkersTree);
+//    delete(this->AllWorkersTree);
+//    deleteCompanyTree(this->Companies);
+//    delete(this->Companies);
+//}
 
 void HighTech::getTree(AllWorkersTreeRank_t* AllWorkersTree, int *workers,int size){
     for (AllWorkersTreeIterator it = AllWorkersTree->begin(); it != AllWorkersTree->end(); ++it) {

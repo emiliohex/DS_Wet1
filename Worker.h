@@ -21,6 +21,9 @@ public:
 		this->company=NULL;
         this->newRankAndId = new rankAndId(workerId,rank);
     }
+    ~Worker(){
+
+	}
 	void changeRank(int newRank) {
 		this->rank=newRank;
 	}

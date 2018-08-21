@@ -33,6 +33,8 @@ public:
 		bestWorker = NULL;
 	}
 
+	~Company(){}
+
 };
 
 

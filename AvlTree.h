@@ -27,11 +27,14 @@ private:
                 data(data), key(key), parent(parent), left(NULL), right(NULL),
                 height(0), factor(0) {}
         ~Node() {
-//            left = NULL;
-//            right = NULL;
-//            parent = NULL;
-//            height = 0;
-//            factor = 0;
+
+            delete parent;
+            delete left;
+            delete right;
+            parent = NULL;
+            left=NULL;
+            right=NULL;
+
         }
 
 

@@ -35,6 +35,7 @@ private:
 
 public:
 	HighTech();
+	~HighTech();
 	StatusType addWorker(int workerID, int rank);
     StatusType addCompany(int companyID);
     StatusType addworkerToCompany(int workerID, int companyID);
