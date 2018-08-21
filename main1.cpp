@@ -137,13 +137,16 @@ void testGetBestWorker(void *DS){
     assert(getBestWorker(DS,0,&best)==INVALID_INPUT);
     assert(getBestWorker(DS,-2,&best)==SUCCESS);
     assert(getBestWorker(DS,0,NULL)==INVALID_INPUT);
-
+    //printf("OK1\n");
     assert(best==1);
     assert(getBestWorker(DS,1,&best)==SUCCESS);
+    //printf("OK2\n");
     assert(best==109);
     assert(getBestWorker(DS,5,&best)==SUCCESS);
+    //printf("OK3\n");
     assert(best==-1);
     assert(getBestWorker(DS,6,&best)==FAILURE);
+    //printf("OK4\n");
     assert(best==-1);
     std::cout<<"Passed best worker test..."<<std::endl;
 }
@@ -155,15 +158,18 @@ void testGetCompanyWorkersByRank(void* DS){
     assert(getCompanyWorkersByRank(DS,2,&workers,NULL)==INVALID_INPUT);
     assert(getCompanyWorkersByRank(DS,0,&workers,&numOfWorkers)==INVALID_INPUT);
     assert(getCompanyWorkersByRank(DS,-2,&workers,&numOfWorkers)==SUCCESS);
+    //printf("OK1\n");
     assert(numOfWorkers==21);
     int arr[21]={1,109,108,107,106,105,104,103,102,101,100,69,68,67,66,65,20,24,23,22,21};
     for(int i=0;i<21;i++){
         assert(workers[i]==arr[i]);
     }
-    free(workers);
+    //free(workers);
+    //printf("OK2\n");
     assert(getCompanyWorkersByRank(DS,2,&workers,&numOfWorkers)==SUCCESS);
     assert(numOfWorkers==0);
     free(workers);
+    //printf("OK3\n");
     std::cout<<"Passed get company workers by rank test..."<<std::endl;
 }
 
@@ -172,11 +178,8 @@ void testQuit(void* DS){
     void** tmp=NULL;
     void* temp=NULL;
     quit(tmp);
-    printf("OK1\n");
     quit(&temp);
-    printf("OK2\n");
     quit(&DS);
-    printf("OK3\n");
     assert(DS==NULL);
     std::cout<<"Passed Quit test..."<<std::endl;
 }

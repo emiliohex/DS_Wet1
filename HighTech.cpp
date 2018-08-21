@@ -303,14 +303,15 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     if(companyID<0){
         *numOfWorkers=this->AllWorkersTree->getSize();
-        int* allWorkers = (int*)malloc(sizeof(allWorkers) * (*numOfWorkers));
-        if(allWorkers == NULL){
+        *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
+        //int* allWorkers = (int*)malloc(sizeof(allWorkers) * (*numOfWorkers));
+        if(*workers == NULL){
             return ALLOCATION_ERROR;
         }
-        getTree(this->AllWorkersTree, allWorkers,*numOfWorkers);
+        getTree(this->AllWorkersTree, *workers,*numOfWorkers);
         printTree(this->AllWorkersTree);
-        reverse(allWorkers,allWorkers+*numOfWorkers-1);
-        *workers = allWorkers;
+        reverse(*workers,*workers+*numOfWorkers-1);
+        //*workers = allWorkers;
         return SUCCESS;
     }
     Company* CompanyExists = this->Companies->find(companyID);
@@ -319,14 +320,15 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     *numOfWorkers=CompanyExists->workers->getSize();
     //printf("numOfWorkers-%d\n",*numOfWorkers);
-    int* companyWorkers = (int*)malloc(sizeof(companyWorkers) * (*numOfWorkers));
-    if(companyWorkers == NULL){
+    *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
+    //int* companyWorkers = (int*)malloc(sizeof(companyWorkers) * (*numOfWorkers));
+    if(*workers == NULL){
         return ALLOCATION_ERROR;
     }
-    getTree(CompanyExists->workers, companyWorkers,*numOfWorkers);
+    getTree(CompanyExists->workers, *workers,*numOfWorkers);
     printTree(CompanyExists->workers);
-    reverse(companyWorkers,companyWorkers+*numOfWorkers-1);
-    *workers = companyWorkers;
+    reverse(*workers,*workers+*numOfWorkers-1);
+    //*workers = companyWorkers;
     return SUCCESS;
 }
 
@@ -347,7 +349,7 @@ void HighTech::getTree(AllWorkersTreeRank_t* AllWorkersTree, int *workers,int si
 void HighTech::reverse(int* start, int* end){
     int* first= start;
     int* last= end;
-    int temp;
+    int temp=0;
     while (first!=last &&!(first>last)) {
         temp = *first;
         *first = *last;
