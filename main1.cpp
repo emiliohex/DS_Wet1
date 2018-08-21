@@ -168,7 +168,7 @@ void testGetCompanyWorkersByRank(void* DS){
     //printf("OK2\n");
     assert(getCompanyWorkersByRank(DS,2,&workers,&numOfWorkers)==SUCCESS);
     assert(numOfWorkers==0);
-    free(workers);
+//    delete workers;
     //printf("OK3\n");
     std::cout<<"Passed get company workers by rank test..."<<std::endl;
 }

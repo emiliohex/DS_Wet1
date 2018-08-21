@@ -303,6 +303,7 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     if(companyID<0){
         *numOfWorkers=this->AllWorkersTree->getSize();
+        delete *workers;
         *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
         //int* allWorkers = (int*)malloc(sizeof(allWorkers) * (*numOfWorkers));
         if(*workers == NULL){
@@ -320,6 +321,7 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     *numOfWorkers=CompanyExists->workers->getSize();
     //printf("numOfWorkers-%d\n",*numOfWorkers);
+    delete *workers;
     *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
     //int* companyWorkers = (int*)malloc(sizeof(companyWorkers) * (*numOfWorkers));
     if(*workers == NULL){
