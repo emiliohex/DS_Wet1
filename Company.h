@@ -34,7 +34,7 @@ public:
 	}
 
 	~Company(){
-		//workers->deleteData();
+		//workers->dataDelete();
 		delete(this->workers);
 	}
 

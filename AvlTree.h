@@ -10,42 +10,42 @@ class AvlTree {
 private:
 
 
-    struct Node {
+    struct avlNode {
         DataType data;
         KeyType key;
-        Node* parent;
-        Node* left;
-        Node* right;
+        avlNode* parent;
+        avlNode* left;
+        avlNode* right;
         int height;
         int factor;
 
-        Node(): data(), key(), parent(NULL),
-                left(NULL), right(NULL), height(0), factor(0) {}
-        Node(int height): data(), key(), parent(NULL),
+        avlNode(): data(), key(), parent(NULL),left(NULL), right(NULL),
+                 height(0), factor(0) {}
+        avlNode(int height): data(), key(), parent(NULL),
                           left(NULL), right(NULL), height(height), factor(0) {}
-        Node(const DataType& data, const KeyType& key, Node* parent = NULL):
+        avlNode(const DataType& data, const KeyType& key, avlNode* parent = NULL):
                 data(data), key(key), parent(parent), left(NULL), right(NULL),
                 height(0), factor(0) {}
-        ~Node() { }
+        ~avlNode() { }
 
 
-        void deleteData() {
-            if (this->left) this->left->deleteData();
-            if (this->right) this->right->deleteData();
+        void dataDelete() {
+            if (this->left) this->left->dataDelete();
+            if (this->right) this->right->dataDelete();
             delete this->data;
         }
 
 
-        void destroyShallow() {
-            if (this->left) this->left->destroyShallow();
-            if (this->right) this->right->destroyShallow();
+        void deleteShallow() {
+            if (this->left) this->left->deleteShallow();
+            if (this->right) this->right->deleteShallow();
             delete this;
         }
 
         void generateTree(int height) {
             if (!height) return;
-            Node* left = new Node(height);
-            Node* right = new Node(height);
+            avlNode* left = new avlNode(height);
+            avlNode* right = new avlNode(height);
             this->left = left;
             this->right = right;
             this->right->parent = this;
@@ -73,7 +73,7 @@ private:
         }
     };
 
-    void swap_node(Node* a, Node* b) {
+    void swap_node(avlNode* a, avlNode* b) {
         KeyType key = a->key;
         DataType data = a->data;
         a->key = b->key;
@@ -82,106 +82,107 @@ private:
         b->data = data;
     }
 
-    Node* head;
+    avlNode* head;
     int size;
 
 public:
     AvlTree(): head(NULL), size(0) {}
 
     ~AvlTree() {
-        destroyTree();
+        deleteTree();
 //        head = NULL;
 //        size = 0;
     }
 
-    void setHead(Node* head){
-        this->head = head;
-    }
-    Node* getHead(){return this->head;}
+
+    avlNode* getHead(){return this->head;}
     void setSize(int size){
         this->size = size;
     }
+    void setHead(avlNode* head){
+        this->head = head;
+    }
 
-    void makeIrrelevant() {
+    void emptyHead() {
         this->head = NULL;
     }
 
-    void destroyTree() {
+    void deleteTree() {
         if (this->head==NULL) {
             return;
         }
-        this->head->destroyShallow();
+        this->head->deleteShallow();
     }
 
-    void deleteData() {
+    void dataDelete() {
         if (this->head==NULL) {
             return;
         }
-        this->head->deleteData();
+        this->head->dataDelete();
     }
 
     class iterator {
     private:
         const AvlTree* tree;
-        Node* current;
         friend class AvlTree;
+        avlNode* currentNode;
     public:
-        iterator(const AvlTree* tree): tree(tree), current(tree ? tree->head : NULL) {}
+        iterator(const AvlTree* tree): tree(tree), currentNode(tree ? tree->head : NULL) {}
         iterator& operator=(const iterator& iterator) {
-            current = iterator.current;
+            currentNode = iterator.currentNode;
             tree = iterator.tree;
             return *this;
         }
         bool operator==(const iterator& i) const {
-            return (current == i.current);
+            return (currentNode == i.currentNode);
         }
         bool operator!=(const iterator& i) const {
             return !(*this == i);
         }
         iterator& operator++() {
-            if (current->right) {
-                current = current->right;
-                while (current->left) {
-                    current = current->left;
+            if (currentNode->right) {
+                currentNode = currentNode->right;
+                while (currentNode->left) {
+                    currentNode = currentNode->left;
                 }
                 return *this;
             }
-            while (current) {
-                Node const* previous = current;
-                current = current->parent;
-                if (current && current->left == previous) return *this;
+            while (currentNode) {
+                avlNode const* previous = currentNode;
+                currentNode = currentNode->parent;
+                if (currentNode && currentNode->left == previous) return *this;
             }
             return *this;
         }
         iterator& operator--() {
-            if (current->left) {
-                current = current->left;
-                while (current->right) {
-                    current = current->right;
+            if (currentNode->left) {
+                currentNode = currentNode->left;
+                while (currentNode->right) {
+                    currentNode = currentNode->right;
                 }
                 return *this;
             }
-            while (current) {
-                Node const* previous = current;
-                current = current->parent;
-                if (current && current->right == previous) return *this;
+            while (currentNode) {
+                avlNode const* previous = currentNode;
+                currentNode = currentNode->parent;
+                if (currentNode && currentNode->right == previous) return *this;
             }
             return *this;
         }
-        DataType operator*() { return (this->current->data); }
+        DataType operator*() { return (this->currentNode->data); }
     };
 
     iterator begin() {
         iterator it = iterator(this);
-        while (it.current && it.current->left) {
-            it.current = it.current->left;
+        while (it.currentNode && it.currentNode->left) {
+            it.currentNode = it.currentNode->left;
         }
         return it;
     }
 
     iterator end() {
         iterator it = iterator(this);
-        it.current = NULL;
+        it.currentNode = NULL;
         return it;
     }
 
@@ -190,14 +191,14 @@ public:
     }
 
     DataType find(const KeyType& key) {
-        Node* current = head;
-        while (current) {
-            if (CompareFunction()(key, current->key)) {
-                current = current->left;
-            } else if (CompareFunction()(current->key, key)) {
-                current = current->right;
+        avlNode* currentNode = head;
+        while (currentNode) {
+            if (CompareFunction()(key, currentNode->key)) {
+                currentNode = currentNode->left;
+            } else if (CompareFunction()(currentNode->key, key)) {
+                currentNode = currentNode->right;
             } else {
-                return (current->data);
+                return (currentNode->data);
             }
         }
         return NULL;
@@ -212,7 +213,7 @@ public:
 
     bool add(const KeyType& key,const DataType& data) {
         if (!head) {
-            head = new Node(data, key);
+            head = new avlNode(data, key);
             if(head==NULL){
                 return false;
             }
@@ -221,19 +222,19 @@ public:
         }
 
         bool fromLeft = true;
-        Node* current = head;
-        Node* previous = current->parent;
-        while (current) {
-            previous = current;
-            if (CompareFunction()(key, current->key)) {
+        avlNode* currentNode = head;
+        avlNode* previous = currentNode->parent;
+        while (currentNode) {
+            previous = currentNode;
+            if (CompareFunction()(key, currentNode->key)) {
                 fromLeft = true;
             } else {
                 fromLeft = false;
             }
-            current = fromLeft ? current->left : current->right;
+            currentNode = fromLeft ? currentNode->left : currentNode->right;
         }
 
-        Node* new_node = new Node(data, key, previous);
+        avlNode* new_node = new avlNode(data, key, previous);
         if(new_node==NULL){
             return false;
         }
@@ -244,7 +245,7 @@ public:
         }
 
         updatePath(new_node);
-        roll(new_node);
+        rollNode(new_node);
         updateHead();
         size++;
         return true;
@@ -253,28 +254,28 @@ public:
     bool remove(const KeyType& key) {
         if (!this->exists(key)) return false;
 
-        Node* current = head;
-        while (CompareFunction()(key, current->key) || CompareFunction()(current->key, key)) {
-            current = CompareFunction()(key, current->key) ? current->left : current->right;
+        avlNode* currentNode = head;
+        while (CompareFunction()(key, currentNode->key) || CompareFunction()(currentNode->key, key)) {
+            currentNode = CompareFunction()(key, currentNode->key) ? currentNode->left : currentNode->right;
         }
 
-        Node* parent = current->parent;
-        if (!current->left && !current->right) {
-            removeLeaf(current);
-        } else if (!current->right || !current->left) {
-            removeSingle(current);
+        avlNode* parent = currentNode->parent;
+        if (!currentNode->left && !currentNode->right) {
+            removeLeaf(currentNode);
+        } else if (!currentNode->right || !currentNode->left) {
+            removeSingle(currentNode);
         } else {
-            removeDouble(current);
+            removeDouble(currentNode);
         }
 
         updatePath(parent);
-        roll(parent);
+        rollNode(parent);
         updateHead();
         size--;
         return true;
     }
 
-    void removeLeaf(Node* node) {
+    void removeLeaf(avlNode* node) {
         if (!node->parent) {
             delete node;
             head = NULL;
@@ -287,7 +288,7 @@ public:
         delete (node);
     }
 
-    void removeSingle(Node* node) {
+    void removeSingle(avlNode* node) {
         if (node->left) { // has left
             if (!node->parent) {
                 head = node->left;
@@ -318,8 +319,8 @@ public:
         delete node;
     }
 
-    void removeDouble(Node* node) {
-        Node* original = node;
+    void removeDouble(avlNode* node) {
+        avlNode* original = node;
         node = original->right;
         while (node->left) {
             node = node->left;
@@ -334,7 +335,7 @@ public:
         }
     }
 
-    void updatePath(Node* node) {
+    void updatePath(avlNode* node) {
         while (node) {
             int left_h = node->left ? node->left->height : -1;
             int right_h = node->right ? node->right->height : -1;
@@ -352,8 +353,8 @@ public:
         }
     }
 
-    void roll_LL(Node* b) {
-        Node* a = b->left;
+    void rollLeftLeft(avlNode* b) {
+        avlNode* a = b->left;
         if (!a) {
             return;
         }
@@ -385,8 +386,8 @@ public:
         a->factor = height_a_left - b->height;
     }
 
-    void roll_RR(Node* a) {
-        Node* b = a->right;
+    void rollRightRight(avlNode* a) {
+        avlNode* b = a->right;
         if (!b) {
             return;
         }
@@ -418,57 +419,58 @@ public:
         b->factor = a->height - height_b_right;
     }
 
-    void roll_LR(Node* c) {
-        Node* b = c->left;
-        roll_RR(b);
-        roll_LL(c);
+    void rollLeftRight(avlNode* c) {
+        avlNode* b = c->left;
+        rollRightRight(b);
+        rollLeftLeft(c);
     }
 
-    void roll_RL(Node* c) {
-        Node* b = c->right;
-        roll_LL(b);
-        roll_RR(c);
+    void rollRightLeft(avlNode* c) {
+        avlNode* b = c->right;
+        rollLeftLeft(b);
+        rollRightRight(c);
     }
 
 
-    void roll(Node* node) {
-        Node* current = node;
-        while (current) {
-            int current_factor = current->factor;
-            if (current_factor >= -1 && current_factor <= 1) {
-                current = current->parent;
+    void rollNode(avlNode* node) {
+        avlNode* currentNode = node;
+        while (currentNode) {
+            int currentFactor = currentNode->factor;
+            if (currentFactor >= -1 && currentFactor <= 1) {
+                currentNode = currentNode->parent;
                 continue;
             }
 
-            int left_factor = current->left ? current->left->factor : -1;
-            int right_factor = current->right ? current->right->factor : -1;
+            int left_factor = currentNode->left ? currentNode->left->factor : -1;
+            int right_factor = currentNode->right ? currentNode->right->factor : -1;
 
-            if (current_factor == 2 && left_factor >= 0) {
-                roll_LL(current);
-            } else if (current_factor == 2 && left_factor == -1) {
-                roll_LR(current);
-            } else if (current_factor == -2 && right_factor <= 0) {
-                roll_RR(current);
-            } else if (current_factor == -2 && right_factor == 1) {
-                roll_RL(current);
+            if (currentFactor == 2 && left_factor >= 0) {
+                rollLeftLeft(currentNode);
+            } else if (currentFactor == 2 && left_factor == -1) {
+                rollLeftRight(currentNode);
+            } else if (currentFactor == -2 && right_factor <= 0) {
+                rollRightRight(currentNode);
+            } else if (currentFactor == -2 && right_factor == 1) {
+                rollRightLeft(currentNode);
             }
 
-            current = current->parent;
+            currentNode = currentNode->parent;
         }
     }
 
-    int getSize() { return size; }
+
 
 
 
     DataType* getMax() {
-        Node* current = this->head;
-        if (!current) return NULL;
-        while(current->right) {
-            current = current->right;
+        avlNode* currentNode = this->head;
+        if (!currentNode) return NULL;
+        while(currentNode->right) {
+            currentNode = currentNode->right;
         }
-        return &(current->data);
+        return &(currentNode->data);
     }
+    int getSize() { return size; }
 
     DataType* createDataArray() {
         if (!size) return NULL;
@@ -483,8 +485,8 @@ public:
     void fill(KeyType keys[], DataType data[]) {
         int i = 0;
         for (iterator it = this->begin(); it != this->end(); ++it) {
-            it.current->data = data[i];
-            it.current->key = keys[i];
+            it.currentNode->data = data[i];
+            it.currentNode->key = keys[i];
             ++i;
         }
     }
@@ -503,7 +505,7 @@ public:
             height++;
         }
 
-        tree->head = new Node(height);
+        tree->head = new avlNode(height);
         tree->head->generateTree(height-1);
         tree->size = size;
 

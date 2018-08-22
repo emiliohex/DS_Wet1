@@ -8,23 +8,23 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/DS/DS_Wet1/cmake-build-debug"/>
+				<Option working_dir="C:/Technion/DS/Final1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Wet1">
-				<Option output="D:/DS/DS_Wet1/cmake-build-debug/Wet1.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/DS/DS_Wet1/cmake-build-debug"/>
+				<Option output="C:/Technion/DS/Final1/cmake-build-debug/Wet1.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Technion/DS/Final1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/DS/DS_Wet1/."/>
+					<Add directory="C:/Technion/DS/Final1/."/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
@@ -34,20 +34,20 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Wet1"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Wet1"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Wet1/fast">
-				<Option output="D:/DS/DS_Wet1/cmake-build-debug/Wet1.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/DS/DS_Wet1/cmake-build-debug"/>
+				<Option output="C:/Technion/DS/Final1/cmake-build-debug/Wet1.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Technion/DS/Final1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/DS/DS_Wet1/."/>
+					<Add directory="C:/Technion/DS/Final1/."/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
@@ -57,67 +57,67 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Wet1/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Wet1/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="D:/DS/DS_Wet1/cmake-build-debug"/>
+				<Option working_dir="C:/Technion/DS/Final1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="D:/DS/DS_Wet1/cmake-build-debug"/>
+				<Option working_dir="C:/Technion/DS/Final1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/DS/DS_Wet1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Technion/DS/Final1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/DS/DS_Wet1/AvlTree.h">
+		<Unit filename="C:/Technion/DS/Final1/AvlTree.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/Company.cpp">
+		<Unit filename="C:/Technion/DS/Final1/Company.cpp">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/Company.h">
+		<Unit filename="C:/Technion/DS/Final1/Company.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/HighTech.cpp">
+		<Unit filename="C:/Technion/DS/Final1/HighTech.cpp">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/HighTech.h">
+		<Unit filename="C:/Technion/DS/Final1/HighTech.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/Worker.h">
+		<Unit filename="C:/Technion/DS/Final1/Worker.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/compare.h">
+		<Unit filename="C:/Technion/DS/Final1/compare.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/library1.cpp">
+		<Unit filename="C:/Technion/DS/Final1/library1.cpp">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/library1.h">
+		<Unit filename="C:/Technion/DS/Final1/library1.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/main1.cpp">
+		<Unit filename="C:/Technion/DS/Final1/main1.cpp">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/rankAndId.h">
+		<Unit filename="C:/Technion/DS/Final1/rankAndId.h">
 			<Option target="Wet1"/>
 		</Unit>
-		<Unit filename="D:/DS/DS_Wet1/CMakeLists.txt">
+		<Unit filename="C:/Technion/DS/Final1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
