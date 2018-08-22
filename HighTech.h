@@ -30,12 +30,11 @@ private:
 	void printTree(AllWorkersTreeRank_t* PostTree);
 	void merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]);
 	void reverse(int* start, int* end);
-    void reverse(Worker** start, Worker** end);
 
 
 public:
 	HighTech();
-	~HighTech();
+	~HighTech(){}
 	StatusType addWorker(int workerID, int rank);
     StatusType addCompany(int companyID);
     StatusType addworkerToCompany(int workerID, int companyID);

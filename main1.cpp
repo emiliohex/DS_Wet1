@@ -58,21 +58,26 @@ void testAddWorkerToCompany(void *DS){
     assert(addworkerToCompany(DS, 1, 0)==INVALID_INPUT);
     assert(addworkerToCompany(DS, 0, 1)==INVALID_INPUT);
     assert(addworkerToCompany(DS, 1, 6)==FAILURE);
+    //printf("OK1\n");
     // company 6 dose not exist
     assert(addworkerToCompany(DS, 6, 1)==FAILURE);
     // worker 6 dose not exist
+   // assert(addworkerToCompany(DS,60,1)==SUCCESS);
     for (int i = 0; i < 10; ++i) {
         assert(addworkerToCompany(DS,60+i,1)==SUCCESS);
         //  Worker(i) with id 60+i rank 55+i company 1
     }
+    //printf("OK2\n");
     for (int i = 0; i < 10; ++i) {
         assert(addworkerToCompany(DS,100+i,2)==SUCCESS);
         //  worker(i) with id 100+i rank 100+i company 2
     }
+    //printf("OK3\n");
     for (int i = 0; i < 5; ++i) {
         assert(addworkerToCompany(DS,20+i,3)==SUCCESS);
         //  worker(i) with id 20+i score 20+i company 3
     }
+   // printf("OK4\n");
     for (int i =100; i < 110; ++i) {
         assert(addworkerToCompany(DS,i,i)==SUCCESS);
         //the compnies 100-109 get one worker each that have id as the company,worker(i) changed
@@ -164,11 +169,11 @@ void testGetCompanyWorkersByRank(void* DS){
     for(int i=0;i<21;i++){
         assert(workers[i]==arr[i]);
     }
-    //free(workers);
+    free(workers);
     //printf("OK2\n");
     assert(getCompanyWorkersByRank(DS,2,&workers,&numOfWorkers)==SUCCESS);
     assert(numOfWorkers==0);
-//    delete workers;
+    free(workers);
     //printf("OK3\n");
     std::cout<<"Passed get company workers by rank test..."<<std::endl;
 }

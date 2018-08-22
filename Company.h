@@ -33,7 +33,10 @@ public:
 		bestWorker = NULL;
 	}
 
-	~Company(){}
+	~Company(){
+		//workers->deleteData();
+		delete(this->workers);
+	}
 
 };
 

@@ -30,7 +30,6 @@ StatusType HighTech::addWorker(int workerID, int rank){
     if(this->AllWorkersTree->add(newRankAndId, newWorker) == false){
         return ALLOCATION_ERROR;
     }
-    printTree(this->AllWorkersTree);
     if(this->bestWorker==NULL || this->bestWorker->getRank()<rank){
         this->bestWorker=newWorker;
     }
@@ -95,13 +94,17 @@ StatusType HighTech::removeWorker(int workerID){
     //printTree(newCompany->workers);
     if(newCompany!=NULL){
         newCompany->workers->remove(newRankAndId);
+        if(newCompany->getBestWorker()== WorkerExists){
+            newCompany->setBestWorker(NULL);
+        }
         //printf("node company - %d\n",newCompany->workers->getSize());
-        newCompany->workers->remove(newRankAndId);
+        //newCompany->workers->remove(newRankAndId);
         //printTree(newCompany->workers);
     }
     //printf("OK3 \n");
     this->Workers->remove(workerID);
     this->AllWorkersTree->remove(newRankAndId);
+    delete(WorkerExists);
     return SUCCESS;
 }
 
@@ -205,12 +208,14 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     int size = numFinalWorkers1+numFinalWorkers2;
     Worker** mergedWorkers=(Worker**) malloc(sizeof(Worker) * size);
     merge(finalWorkers1,numFinalWorkers1,finalWorkers2,numFinalWorkers2,mergedWorkers);
+    free(finalWorkers1);
+    free(finalWorkers2);
+    delete[] allWorkers1;
+    delete[] allWorkers2;
     //reverse(mergedWorkers,mergedWorkers+size-1);
-    for(i=0;i<numFinalWorkers2+numFinalWorkers1;i++){
-        //printf("mergedWorkers[t2] - %d\n",mergedWorkers[i]->getId());
-    }
     //printf("OK7\n");
-    this->Companies->find(newCompanyId)->workers->destroyTree();
+    //this->Companies->find(newCompanyId)->workers->destroyTree();
+    delete(this->Companies->find(newCompanyId)->workers);
     /*  Company* mergedCompany;
       try{
           mergedCompany=new Company(newCompanyId);
@@ -235,6 +240,8 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
         keyWorkers[i]=mergedWorkers[i]->getRankAndId();
     }
     mergeWorkerTree->fill(keyWorkers,mergedWorkers);
+    free(keyWorkers);
+    free(mergedWorkers);
     //printTree(mergeWorkerTree);
     //printf("OK11\n");
     this->Companies->find(newCompanyId)->workers=mergeWorkerTree;
@@ -243,9 +250,11 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     //printTree(mergedCompany->workers);
     if(newCompanyId==companyID1){
         this->Companies->remove(companyID2);
+        delete(Company2Exists);
     }
     else {
         this->Companies->remove(companyID1);
+        delete(Company1Exists);
     }
     //this->Companies->add(mergedCompany->getId(),mergedCompany);
     return SUCCESS;
@@ -303,14 +312,14 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     if(companyID<0){
         *numOfWorkers=this->AllWorkersTree->getSize();
-        delete *workers;
+        //delete *workers;
         *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
         //int* allWorkers = (int*)malloc(sizeof(allWorkers) * (*numOfWorkers));
         if(*workers == NULL){
             return ALLOCATION_ERROR;
         }
         getTree(this->AllWorkersTree, *workers,*numOfWorkers);
-        printTree(this->AllWorkersTree);
+        //printTree(this->AllWorkersTree);
         reverse(*workers,*workers+*numOfWorkers-1);
         //*workers = allWorkers;
         return SUCCESS;
@@ -321,7 +330,7 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     *numOfWorkers=CompanyExists->workers->getSize();
     //printf("numOfWorkers-%d\n",*numOfWorkers);
-    delete *workers;
+    //delete *workers;
     *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
     //int* companyWorkers = (int*)malloc(sizeof(companyWorkers) * (*numOfWorkers));
     if(*workers == NULL){
@@ -334,26 +343,15 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     return SUCCESS;
 }
 
-HighTech::~HighTech(){
-    delete(this->bestWorker);
-    this->bestWorker=NULL;
-//    deleteWorkerTree(this->AllWorkersTree);
-    delete(this->AllWorkersTree);
-    this->AllWorkersTree=NULL;
-    delete(this->Workers);
-    this->Workers=NULL;
-//    deleteCompanyTree(this->Companies);
-    delete(this->Companies);
-    this->Companies=NULL;
-}
 
-//void HighTech::Quit(){
-//    delete(this->bestWorker);
-//    deleteWorkerTree(this->AllWorkersTree);
-//    delete(this->AllWorkersTree);
-//    deleteCompanyTree(this->Companies);
-//    delete(this->Companies);
-//}
+void HighTech::Quit(){
+    AllWorkersTree->deleteData();
+    Companies->deleteData();
+    delete(this->Companies);
+    delete(this->Workers);
+    delete(this->AllWorkersTree);
+
+}
 
 void HighTech::getTree(AllWorkersTreeRank_t* AllWorkersTree, int *workers,int size){
     for (AllWorkersTreeIterator it = AllWorkersTree->begin(); it != AllWorkersTree->end(); ++it) {
@@ -369,19 +367,6 @@ void HighTech::reverse(int* start, int* end){
         temp = *first;
         *first = *last;
         *last = temp;
-        first++;
-        last--;
-    }
-    return;
-}
-void HighTech::reverse(Worker** start, Worker** end){
-    Worker** first= start;
-    Worker** last= end;
-    Worker *temp;
-    while (first!=last &&!(first>last)) {
-        *temp = **first;
-        **first = **last;
-        **last = *temp;
         first++;
         last--;
     }

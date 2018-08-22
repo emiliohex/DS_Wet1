@@ -46,10 +46,8 @@ void quit(void** DS){
     if(!DS || !(*DS)){
         return;
     }
-//    HighTech** highTech = (HighTech**)DS;
-    //((HighTech*)*DS)->Quit();
-//    delete *highTech;
-delete *(HighTech**)DS;
+    ((HighTech*)*DS)->Quit();
+    delete *(HighTech**)DS;
 	*DS = NULL;
 }
 

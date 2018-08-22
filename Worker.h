@@ -22,7 +22,8 @@ public:
         this->newRankAndId = new rankAndId(workerId,rank);
     }
     ~Worker(){
-
+	    //this->company=NULL;
+	    delete(this->newRankAndId);
 	}
 	void changeRank(int newRank) {
 		this->rank=newRank;

@@ -26,16 +26,7 @@ private:
         Node(const DataType& data, const KeyType& key, Node* parent = NULL):
                 data(data), key(key), parent(parent), left(NULL), right(NULL),
                 height(0), factor(0) {}
-        ~Node() {
-
-            delete parent;
-            delete left;
-            delete right;
-            parent = NULL;
-            left=NULL;
-            right=NULL;
-
-        }
+        ~Node() { }
 
 
         void deleteData() {
