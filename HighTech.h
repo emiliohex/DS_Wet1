@@ -13,7 +13,6 @@
 #define AllWorkersTreeId_t AvlTree<int, Worker*, IntComparer>
 #define AllWorkersTreeRank_t AvlTree<rankAndId* , Worker*, rankThanId>
 
-#define CompaniesTreeIterator CompaniesTree_t::iterator
 #define AllWorkersTreeIterator AllWorkersTreeRank_t::iterator
 
 class HighTech {
@@ -25,9 +24,6 @@ private:
     Worker* bestWorker;
 
 	void getTree(AllWorkersTreeRank_t* AllWorkersTree, int *workers,int size);
-	void deleteWorkerTree(AllWorkersTreeRank_t* AllWorkersTree);
-	void deleteCompanyTree(CompaniesTree_t* Companies);
-	void printTree(AllWorkersTreeRank_t* PostTree);
 	void merge(Worker* a[], int m, Worker* b[], int n, Worker* sorted[]);
 	void reverse(int* start, int* end);
 

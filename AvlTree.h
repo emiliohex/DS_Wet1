@@ -90,8 +90,6 @@ public:
 
     ~AvlTree() {
         deleteTree();
-//        head = NULL;
-//        size = 0;
     }
 
 
@@ -204,12 +202,6 @@ public:
         return NULL;
     }
 
-
-//    AVL& operator=(const AVL& avl) {
-//        this->size = avl.size;
-//        this->head = avl.head;
-//        return *this;
-//    }
 
     bool add(const KeyType& key,const DataType& data) {
         if (!head) {
@@ -457,10 +449,6 @@ public:
             currentNode = currentNode->parent;
         }
     }
-
-
-
-
 
     DataType getMax() {
         avlNode* currentNode = this->head;
