@@ -120,28 +120,53 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     }
     //printf("OK1 - %d\n",Company1Exists->getId());
     int newCompanyId;
-    if(Company1Exists->workers->getSize() >= Company1Exists->workers->getSize()){
+    if(Company1Exists->workers->getSize() > Company1Exists->workers->getSize()){
         newCompanyId=Company1Exists->getId();
-    }else{
+    }
+    if(Company1Exists->workers->getSize() < Company1Exists->workers->getSize()){
         newCompanyId=Company2Exists->getId();
     }
+    if(Company1Exists->workers->getSize() == Company1Exists->workers->getSize()){
+        if(Company1Exists->getId()<Company2Exists->getId()){
+            newCompanyId=Company1Exists->getId();
+        }
+        if(Company1Exists->getId()>Company2Exists->getId()){
+            newCompanyId=Company2Exists->getId();
+        }
+
+    }
+
     //printf("OK2 - %d\n",newCompanyId);
     //printf("OK3 - %d\n",Company1Exists->getBestWorker()->getRank());
+    //printf("OK3 - %d\n",Company2Exists->getBestWorker()->getRank());
     Worker* mergedBestWorker;
-    if(Company1Exists->getBestWorker()==NULL||Company1Exists->getBestWorker()->getRank()>=Company2Exists->getBestWorker()->getRank()){
+    if(Company1Exists->getBestWorker()==NULL&&Company2Exists->getBestWorker()==NULL){
+        mergedBestWorker=NULL;
+    }
+    if(Company1Exists->getBestWorker()==NULL&&Company2Exists->getBestWorker()!=NULL){
+        mergedBestWorker=Company2Exists->getBestWorker();
+    }
+    if(Company1Exists->getBestWorker()!=NULL&&Company2Exists->getBestWorker()==NULL){
+        mergedBestWorker=Company1Exists->getBestWorker();
+    }
+    if(Company2Exists->getBestWorker()==NULL||Company1Exists->getBestWorker()->getRank()>Company2Exists->getBestWorker()->getRank()){
+        //printf("OK41\n");
         mergedBestWorker=Company1Exists->getBestWorker();
     }else{
+        //printf("OK42\n");
         mergedBestWorker=Company2Exists->getBestWorker();
     }
     if(mergedBestWorker->getRank()<minimalRank){
+        //printf("OK43\n");
         mergedBestWorker=NULL;
     }
-    //printf("mergedBestWorker-%d\n",mergedBestWorker->getId());
+    //printf("Company1Exists->workers->getSize()-%d\n",Company1Exists->workers->getSize());
     Worker** allWorkers1;
     allWorkers1=Company1Exists->workers->createDataArray();
+    //printf("OK4\n");
     Worker** allWorkers2;
     allWorkers2 =Company2Exists->workers->createDataArray();
-   // printf("OK4\n");
+    //printf("OK5\n");
 
     int j=0;
     //printf("Company1Exists->workers->getSize() - %d\n",Company1Exists->workers->getSize());
@@ -184,6 +209,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     //printf("Company1Exists->workers->getSize() - %d\n",Company1Exists->workers->getSize());
     for(k=j;k<Company1Exists->workers->getSize();k++){
         finalWorkers1[t]=allWorkers1[k];
+        finalWorkers1[t]->setCompany(this->Companies->find(newCompanyId));
         //printf("allWorkers1[t1] - %d\n",allWorkers1[k]->getId());
         t++;
     }
@@ -194,6 +220,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     t=0;
     for(s=i;s<Company2Exists->workers->getSize();s++){
         finalWorkers2[t]=allWorkers2[s];
+        finalWorkers2[t]->setCompany(this->Companies->find(newCompanyId));
         //printf("allWorkers2[t1] - %d\n",allWorkers2[s]->getId());
         t++;
     }
@@ -268,23 +295,22 @@ StatusType HighTech::changeRank(int workerID, int newRank){
     if( WorkerExists==NULL){
         return FAILURE;
     }
-    //printf("OK11\n");
     int newWorkerId=WorkerExists->getId();
     int newWorkerRank = newRank;
     Company* newCompany=WorkerExists->getCompany();
-    //printf("OK12\n");
     StatusType status =removeWorker(workerID);
     if(status!=SUCCESS){
         return status;
     }
-    //printf("OK13\n");
     status=addWorker(newWorkerId,newWorkerRank);
     if(status!=SUCCESS){
         return status;
     }
-    //printf("OK14\n");
-    Worker* newWorkerExists = this->Workers->find(newWorkerId);
-    newWorkerExists->setCompany(newCompany);
+    //Worker* newWorkerExists = this->Workers->find(newWorkerId);
+    if(newCompany!=NULL){
+        addworkerToCompany(newWorkerId,newCompany->getId());
+    }
+    //newWorkerExists->setCompany(newCompany);
     return SUCCESS;
 }
 StatusType HighTech::getBestWorker(int companyID, int *workerID){

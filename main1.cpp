@@ -58,26 +58,21 @@ void testAddWorkerToCompany(void *DS){
     assert(addworkerToCompany(DS, 1, 0)==INVALID_INPUT);
     assert(addworkerToCompany(DS, 0, 1)==INVALID_INPUT);
     assert(addworkerToCompany(DS, 1, 6)==FAILURE);
-    //printf("OK1\n");
     // company 6 dose not exist
     assert(addworkerToCompany(DS, 6, 1)==FAILURE);
     // worker 6 dose not exist
-   // assert(addworkerToCompany(DS,60,1)==SUCCESS);
     for (int i = 0; i < 10; ++i) {
         assert(addworkerToCompany(DS,60+i,1)==SUCCESS);
         //  Worker(i) with id 60+i rank 55+i company 1
     }
-    //printf("OK2\n");
     for (int i = 0; i < 10; ++i) {
         assert(addworkerToCompany(DS,100+i,2)==SUCCESS);
         //  worker(i) with id 100+i rank 100+i company 2
     }
-    //printf("OK3\n");
     for (int i = 0; i < 5; ++i) {
         assert(addworkerToCompany(DS,20+i,3)==SUCCESS);
         //  worker(i) with id 20+i score 20+i company 3
     }
-   // printf("OK4\n");
     for (int i =100; i < 110; ++i) {
         assert(addworkerToCompany(DS,i,i)==SUCCESS);
         //the compnies 100-109 get one worker each that have id as the company,worker(i) changed
@@ -142,16 +137,13 @@ void testGetBestWorker(void *DS){
     assert(getBestWorker(DS,0,&best)==INVALID_INPUT);
     assert(getBestWorker(DS,-2,&best)==SUCCESS);
     assert(getBestWorker(DS,0,NULL)==INVALID_INPUT);
-    //printf("OK1\n");
+
     assert(best==1);
     assert(getBestWorker(DS,1,&best)==SUCCESS);
-    //printf("OK2\n");
     assert(best==109);
     assert(getBestWorker(DS,5,&best)==SUCCESS);
-    //printf("OK3\n");
     assert(best==-1);
     assert(getBestWorker(DS,6,&best)==FAILURE);
-    //printf("OK4\n");
     assert(best==-1);
     std::cout<<"Passed best worker test..."<<std::endl;
 }
@@ -163,18 +155,15 @@ void testGetCompanyWorkersByRank(void* DS){
     assert(getCompanyWorkersByRank(DS,2,&workers,NULL)==INVALID_INPUT);
     assert(getCompanyWorkersByRank(DS,0,&workers,&numOfWorkers)==INVALID_INPUT);
     assert(getCompanyWorkersByRank(DS,-2,&workers,&numOfWorkers)==SUCCESS);
-    //printf("OK1\n");
     assert(numOfWorkers==21);
     int arr[21]={1,109,108,107,106,105,104,103,102,101,100,69,68,67,66,65,20,24,23,22,21};
     for(int i=0;i<21;i++){
         assert(workers[i]==arr[i]);
     }
     free(workers);
-    //printf("OK2\n");
     assert(getCompanyWorkersByRank(DS,2,&workers,&numOfWorkers)==SUCCESS);
     assert(numOfWorkers==0);
     free(workers);
-    //printf("OK3\n");
     std::cout<<"Passed get company workers by rank test..."<<std::endl;
 }
 
