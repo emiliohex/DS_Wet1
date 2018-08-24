@@ -95,13 +95,16 @@ StatusType HighTech::removeWorker(int workerID){
     if(newCompany!=NULL){
         newCompany->workers->remove(newRankAndId);
         if(newCompany->getBestWorker()== WorkerExists){
-            newCompany->setBestWorker(NULL);
+            newCompany->setBestWorker(newCompany->workers->getMax());
         }
         //printf("node company - %d\n",newCompany->workers->getSize());
         //newCompany->workers->remove(newRankAndId);
         //printTree(newCompany->workers);
     }
     //printf("OK3 \n");
+    if(bestWorker==WorkerExists){
+        bestWorker=this->Workers->getMax();
+    }
     this->Workers->remove(workerID);
     this->AllWorkersTree->remove(newRankAndId);
     delete(WorkerExists);

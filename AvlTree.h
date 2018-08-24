@@ -462,13 +462,13 @@ public:
 
 
 
-    DataType* getMax() {
+    DataType getMax() {
         avlNode* currentNode = this->head;
         if (!currentNode) return NULL;
         while(currentNode->right) {
             currentNode = currentNode->right;
         }
-        return &(currentNode->data);
+        return (currentNode->data);
     }
     int getSize() { return size; }
 

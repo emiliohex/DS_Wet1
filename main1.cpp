@@ -175,7 +175,6 @@ void testQuit(void* DS){
     quit(&temp);
     quit(&DS);
     assert(DS==NULL);
-    std::cout<<"Passed Quit test..."<<std::endl;
 }
 
 
