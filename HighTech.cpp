@@ -241,7 +241,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     delete[] allWorkers2;
     //reverse(mergedWorkers,mergedWorkers+size-1);
     //printf("OK7\n");
-    //this->Companies->find(newCompanyId)->workers->destroyTree();
+    //this->Companies->find(newCompanyId)->workers->deleteTree();
     delete(this->Companies->find(newCompanyId)->workers);
     /*  Company* mergedCompany;
       try{
@@ -371,8 +371,8 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
 
 
 void HighTech::Quit(){
-    AllWorkersTree->deleteData();
-    Companies->deleteData();
+    AllWorkersTree->dataDelete();
+    Companies->dataDelete();
     delete(this->Companies);
     delete(this->Workers);
     delete(this->AllWorkersTree);
