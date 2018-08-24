@@ -111,10 +111,10 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
         return FAILURE;
     }
     int newCompanyId;
-    if(Company1Exists->workers->getSize() > Company1Exists->workers->getSize()){
+    if(Company1Exists->workers->getSize() > Company2Exists->workers->getSize()){
         newCompanyId=Company1Exists->getId();
     }
-    if(Company1Exists->workers->getSize() < Company1Exists->workers->getSize()){
+    if(Company1Exists->workers->getSize() < Company2Exists->workers->getSize()){
         newCompanyId=Company2Exists->getId();
     }
     if(Company1Exists->workers->getSize() == Company1Exists->workers->getSize()){
