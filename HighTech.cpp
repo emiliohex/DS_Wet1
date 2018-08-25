@@ -64,6 +64,15 @@ StatusType HighTech::addworkerToCompany(int workerID, int companyID){
         return FAILURE;
     }
     rankAndId* newRankAndId = WorkerExists->getRankAndId();
+    if(WorkerExists->getCompany()!=NULL) {
+        if (WorkerExists->getCompany()->getId() != CompanyExists->getId()) {
+            WorkerExists->getCompany()->workers->remove(newRankAndId);
+            if(WorkerExists->getCompany()->getBestWorker()==WorkerExists){
+                WorkerExists->getCompany()->setBestWorker(WorkerExists->getCompany()->workers->getMax());
+            }
+        }
+    }
+
     if(CompanyExists->workers->add(newRankAndId, WorkerExists)==false){
         return ALLOCATION_ERROR;
     }

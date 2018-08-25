@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Technion/DS/Final1/AvlTree.h
+D:/DS/DS_Wet1/AvlTree.h
 stddef.h
 -
 stdlib.h
@@ -14,19 +14,17 @@ stdlib.h
 iostream
 -
 
-C:/Technion/DS/Final1/Company.cpp
-
-C:/Technion/DS/Final1/Company.h
+D:/DS/DS_Wet1/Company.h
 AvlTree.h
-C:/Technion/DS/Final1/AvlTree.h
+D:/DS/DS_Wet1/AvlTree.h
 Worker.h
-C:/Technion/DS/Final1/Worker.h
+D:/DS/DS_Wet1/Worker.h
 compare.h
-C:/Technion/DS/Final1/compare.h
+D:/DS/DS_Wet1/compare.h
 
-C:/Technion/DS/Final1/HighTech.cpp
+D:/DS/DS_Wet1/HighTech.cpp
 HighTech.h
-C:/Technion/DS/Final1/HighTech.h
+D:/DS/DS_Wet1/HighTech.h
 stdio.h
 -
 stdlib.h
@@ -34,51 +32,35 @@ stdlib.h
 math.h
 -
 
-C:/Technion/DS/Final1/HighTech.h
+D:/DS/DS_Wet1/HighTech.h
 library1.h
-C:/Technion/DS/Final1/library1.h
+D:/DS/DS_Wet1/library1.h
 AvlTree.h
-C:/Technion/DS/Final1/AvlTree.h
+D:/DS/DS_Wet1/AvlTree.h
 Company.h
-C:/Technion/DS/Final1/Company.h
+D:/DS/DS_Wet1/Company.h
 Worker.h
-C:/Technion/DS/Final1/Worker.h
+D:/DS/DS_Wet1/Worker.h
 compare.h
-C:/Technion/DS/Final1/compare.h
+D:/DS/DS_Wet1/compare.h
 rankAndId.h
-C:/Technion/DS/Final1/rankAndId.h
+D:/DS/DS_Wet1/rankAndId.h
 math.h
-C:/Technion/DS/Final1/math.h
+D:/DS/DS_Wet1/math.h
 
-C:/Technion/DS/Final1/Worker.h
+D:/DS/DS_Wet1/Worker.h
 rankAndId.h
-C:/Technion/DS/Final1/rankAndId.h
+D:/DS/DS_Wet1/rankAndId.h
 stdio.h
 -
 stdlib.h
 -
 
-C:/Technion/DS/Final1/compare.h
+D:/DS/DS_Wet1/compare.h
 Worker.h
-C:/Technion/DS/Final1/Worker.h
+D:/DS/DS_Wet1/Worker.h
 
-C:/Technion/DS/Final1/library1.cpp
-library1.h
-C:/Technion/DS/Final1/library1.h
-HighTech.h
-C:/Technion/DS/Final1/HighTech.h
+D:/DS/DS_Wet1/library1.h
 
-C:/Technion/DS/Final1/library1.h
-
-C:/Technion/DS/Final1/main1.cpp
-iostream
--
-library1.h
-C:/Technion/DS/Final1/library1.h
-cassert
--
-stdlib.h
--
-
-C:/Technion/DS/Final1/rankAndId.h
+D:/DS/DS_Wet1/rankAndId.h
 

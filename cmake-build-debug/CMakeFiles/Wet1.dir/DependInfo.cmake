@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Technion/DS/Final1/Company.cpp" "C:/Technion/DS/Final1/cmake-build-debug/CMakeFiles/Wet1.dir/Company.cpp.obj"
-  "C:/Technion/DS/Final1/HighTech.cpp" "C:/Technion/DS/Final1/cmake-build-debug/CMakeFiles/Wet1.dir/HighTech.cpp.obj"
-  "C:/Technion/DS/Final1/library1.cpp" "C:/Technion/DS/Final1/cmake-build-debug/CMakeFiles/Wet1.dir/library1.cpp.obj"
-  "C:/Technion/DS/Final1/main1.cpp" "C:/Technion/DS/Final1/cmake-build-debug/CMakeFiles/Wet1.dir/main1.cpp.obj"
+  "D:/DS/DS_Wet1/Company.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/Company.cpp.obj"
+  "D:/DS/DS_Wet1/HighTech.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/HighTech.cpp.obj"
+  "D:/DS/DS_Wet1/library1.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/library1.cpp.obj"
+  "D:/DS/DS_Wet1/main1.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/main1.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
