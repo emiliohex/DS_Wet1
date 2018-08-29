@@ -117,6 +117,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     Company* Company1Exists = this->Companies->find(companyID1);
     Company* Company2Exists = this->Companies->find(companyID2);
     if( Company1Exists==NULL || Company2Exists==NULL){
+        printf("FAIL\n");
         return FAILURE;
     }
     int newCompanyId;
@@ -126,7 +127,7 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     if(Company1Exists->workers->getSize() < Company2Exists->workers->getSize()){
         newCompanyId=Company2Exists->getId();
     }
-    if(Company1Exists->workers->getSize() == Company1Exists->workers->getSize()){
+    if(Company1Exists->workers->getSize() == Company2Exists->workers->getSize()){
         if(Company1Exists->getId()<Company2Exists->getId()){
             newCompanyId=Company1Exists->getId();
         }
@@ -149,7 +150,15 @@ StatusType HighTech::mergeCompanies(int companyID1, int companyID2, int minimalR
     if(Company2Exists->getBestWorker()==NULL||Company1Exists->getBestWorker()->getRank()>Company2Exists->getBestWorker()->getRank()){
         mergedBestWorker=Company1Exists->getBestWorker();
     }else{
-        mergedBestWorker=Company2Exists->getBestWorker();
+        if(Company1Exists->getBestWorker()->getRank()==Company2Exists->getBestWorker()->getRank()) {
+            if (Company1Exists->getBestWorker()->getId() < Company2Exists->getBestWorker()->getId())
+                mergedBestWorker = Company1Exists->getBestWorker();
+            else
+                mergedBestWorker = Company2Exists->getBestWorker();
+        } else{
+            mergedBestWorker = Company2Exists->getBestWorker();
+        }
+
     }
     if(mergedBestWorker->getRank()<minimalRank){
         mergedBestWorker=NULL;
@@ -277,6 +286,10 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
     }
     if(companyID<0){
         *numOfWorkers=this->AllWorkersTree->getSize();
+        if(*numOfWorkers==0){
+            *workers=NULL;
+            return SUCCESS;
+        }
         *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
         if(*workers == NULL){
             return ALLOCATION_ERROR;
@@ -290,6 +303,10 @@ StatusType HighTech::getCompanyWorkersByRank (int companyID, int **workers, int 
         return FAILURE;
     }
     *numOfWorkers=CompanyExists->workers->getSize();
+    if(*numOfWorkers==0){
+        *workers=NULL;
+        return SUCCESS;
+    }
     *workers=(int*)malloc(sizeof(int) * (*numOfWorkers));
     if(*workers == NULL){
         return ALLOCATION_ERROR;

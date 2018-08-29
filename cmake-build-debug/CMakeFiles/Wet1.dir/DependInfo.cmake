@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/DS/DS_Wet1/Company.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/Company.cpp.obj"
   "D:/DS/DS_Wet1/HighTech.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/HighTech.cpp.obj"
   "D:/DS/DS_Wet1/library1.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/library1.cpp.obj"
+  "D:/DS/DS_Wet1/main.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/main.cpp.obj"
   "D:/DS/DS_Wet1/main1.cpp" "D:/DS/DS_Wet1/cmake-build-debug/CMakeFiles/Wet1.dir/main1.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

@@ -15,5 +15,7 @@ add_executable(Wet1
         library1.cpp
         library1.h
         main1.cpp
+        main.cpp
+        test_utilities.h
         rankAndId.h
         Worker.h)

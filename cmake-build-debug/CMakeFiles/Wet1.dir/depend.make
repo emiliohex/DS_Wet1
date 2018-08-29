@@ -21,6 +21,10 @@ CMakeFiles/Wet1.dir/library1.cpp.obj: ../library1.cpp
 CMakeFiles/Wet1.dir/library1.cpp.obj: ../library1.h
 CMakeFiles/Wet1.dir/library1.cpp.obj: ../rankAndId.h
 
+CMakeFiles/Wet1.dir/main.cpp.obj: ../library1.h
+CMakeFiles/Wet1.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/Wet1.dir/main.cpp.obj: ../test_utilities.h
+
 CMakeFiles/Wet1.dir/main1.cpp.obj: ../library1.h
 CMakeFiles/Wet1.dir/main1.cpp.obj: ../main1.cpp
 

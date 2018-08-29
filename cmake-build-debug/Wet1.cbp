@@ -111,10 +111,16 @@
 		<Unit filename="D:/DS/DS_Wet1/library1.h">
 			<Option target="Wet1"/>
 		</Unit>
+		<Unit filename="D:/DS/DS_Wet1/main.cpp">
+			<Option target="Wet1"/>
+		</Unit>
 		<Unit filename="D:/DS/DS_Wet1/main1.cpp">
 			<Option target="Wet1"/>
 		</Unit>
 		<Unit filename="D:/DS/DS_Wet1/rankAndId.h">
+			<Option target="Wet1"/>
+		</Unit>
+		<Unit filename="D:/DS/DS_Wet1/test_utilities.h">
 			<Option target="Wet1"/>
 		</Unit>
 		<Unit filename="D:/DS/DS_Wet1/CMakeLists.txt">

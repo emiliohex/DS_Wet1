@@ -203,6 +203,33 @@ library1.cpp.s:
 	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/library1.cpp.s
 .PHONY : library1.cpp.s
 
+main.obj: main.cpp.obj
+
+.PHONY : main.obj
+
+# target to build an object file
+main.cpp.obj:
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main.cpp.obj
+.PHONY : main.cpp.obj
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles\Wet1.dir\build.make CMakeFiles/Wet1.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 main1.obj: main1.cpp.obj
 
 .PHONY : main1.obj
@@ -248,6 +275,9 @@ help:
 	@echo ... library1.obj
 	@echo ... library1.i
 	@echo ... library1.s
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
 	@echo ... main1.obj
 	@echo ... main1.i
 	@echo ... main1.s
