@@ -32,6 +32,12 @@ StatusType HighTech::addWorker(int workerID, int rank){
     }
     if(this->bestWorker==NULL || this->bestWorker->getRank()<rank){
         this->bestWorker=newWorker;
+        return SUCCESS;
+    }
+    if(this->bestWorker->getRank()==rank){
+        if(this->bestWorker->getId()>workerID){
+            this->bestWorker=newWorker;
+        }
     }
     return SUCCESS;
 }
@@ -78,6 +84,10 @@ StatusType HighTech::addworkerToCompany(int workerID, int companyID){
     }
     if(CompanyExists->getBestWorker()==NULL ||  CompanyExists->getBestWorker()->getRank() < WorkerExists->getRank()){
         CompanyExists->setBestWorker(WorkerExists);
+    }
+    if(CompanyExists->getBestWorker()->getRank() == WorkerExists->getRank()){
+        if(CompanyExists->getBestWorker()->getId() > WorkerExists->getId())
+            CompanyExists->setBestWorker(WorkerExists);
     }
     WorkerExists->setCompany(CompanyExists);
     return SUCCESS;

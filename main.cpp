@@ -112,6 +112,7 @@ void David_test(){
          __LINE__);
     test(((getBestWorker(DS, -1, &workerNum) == SUCCESS) && workerNum == 1), "getBestWorker - bad output",
          __LINE__);
+    printf("worker - %d\n",workerNum);
     test(((getBestWorker(DS, 3, &workerNum) == SUCCESS) && workerNum == 15), "getBestWorker - bad output",
          __LINE__);
     test(addworkerToCompany(DS, 1,3)==SUCCESS,"addWorkerToCompany failed",__LINE__);
